@@ -1,0 +1,71 @@
+%Input preamble
+\input{preamble}
+\let\counterwithout\relax
+\let\counterwithin\relax
+\definecolor{maroon}{HTML}{4B0082}
+
+\begin{document}
+
+\noindent \textbf{Regression Discontinuity Design.}\\
+\noindent Jorge Luis García \\
+\noindent e-mail: jlgarci@clemson.edu\\
+
+\noindent \textbf{Notation.} Let $y_{i} = y_{i}^0 + D_{i} \cdot \left( y_{i}^1 - y_{i}^0 \right)$ be the outcome of interest for individual $i \in \mathcal{I}$, where $\mathcal{I}$ indexes individuals. $D_{i}$ is a binary treatment indicator. Regression discontinuity design is a method developed to identify and estimate causal effects in a framework where there is a discontinuous relationship between the variables $R_{i}$ and $D_{i}$ at a point $c$. Specifically $\Pr \left[ D_{i} = 1 | R_i = r \right]$ is discontinuous at $r = c$. $R_{i}$ is commonly referred to as the running or forcing variable. $c$ is the cutoff.\\
+
+\noindent A researcher is interested in implementing this method because they believe that $D_{i}$ and $R_{i}$ are correlated with unobserved characteristics. However, they have a design where it is plausible to assume that $y_{i}^d$ for $d = 0,1$ varies continuously with $R_i$ at $R_i = c$. Thus, at $R_i = c$ the most variation in the potential outcomes is due to the discontinuity in $\Pr \left[ D_{i} = 1 | R_i = r \right]$.\\
+
+\noindent \textbf{Immediate Limitation.} By construction, this empirical strategy only identifies causal effects for compliers with $R_{i} = c$. Additionally, different cutoffs identify different causal effects of interest (draw an analogy with linear instrumental-variable estimators).\\ 
+
+\noindent \textbf{Identification in Sharp Regression Discontinuity Designs.} In sharp designs, $D_{i}$ changes deterministically from 0 to 1: $D_{i} := \bm{1} \left[ R_{i} \geq c \right]$. Therefore, $\left( y_{i0}, y_{i1} \right) \independent D_{i} | R_{i}$. This allows for (non-parametric) identification of $\mathbb{E} \left[ y_{i0} | R_{i} = r\right]$ for $R_{i} < c$ and $\mathbb{E} \left[ y_{i1} | R_{i} = r\right]$ for $R_{i} \geq c$. If $y_{i}^d$ for $d = 0,1$ varies continuously with $R_i$ at $R_i = c$, then $\mathbb{E} \left[  y_{i1} - y_{i1} | R_{i} = c \right]$ is (non-parametrically) identified. Graphically, 
+
+\begin{figure}[H]
+\centering
+\caption{Identification in Regression Discontinuity Designs, Illustration}
+\includegraphics[width=.75\textwidth]{rdd.jpg}
+\end{figure}
+
+\noindent Formally, let $D_{i} := \bm{1} \left[ R_{i} \geq c \right]$ and let $\mathbb{E} \left[ y_{id} | R_{i} = r\right]$ be continuous at $r = c$. Then, 
+\begin{eqnarray} 
+\lim_{r \downarrow c} \mathbb{E} \left[ y_{i} | R_{i} = r \right] &=& \lim_{r \downarrow c}  \mathbb{E} \left[ y_{i1} | R_{i} = r \right] \nonumber \\
+&=& \mathbb{E} \left[ y_{i1} | R_{i} = c \right], 
+\end{eqnarray}
+\noindent where the first equality follows because the design is sharp and the second because of continuity. Analogously, $\lim_{r \uparrow c} \mathbb{E} \left[ y_{i} | R_{i} = r \right] =  \mathbb{E} \left[ y_{i0} | R_{i} = c \right]$. Thus, 
+\begin{equation}
+\mathbb{E} \left[ y_{i1} - y_{i0} | R_{i} = c \right] = \lim_{r \downarrow c} \mathbb{E} \left[ y_{i} | R_{i} = r \right] - \lim_{r \uparrow c} \mathbb{E} \left[ y_{i} | R_{i} = r \right].
+\end{equation}
+
+\noindent Sharp RDD is an ATE local at $c$.\\
+
+\noindent \textbf{Identification in Fuzzy Regression Discontinuity Designs.} In this case, $\Pr \left[ D_{i} = 1 | R_i = r \right]$ is discontinuous at $r = c$ but $\Pr \left[ D_{i} = 1 | R_i = r \right] \neq \bm{1} \left[ R_i \geq c \right]$. Thus, $ z_{i}:= \bm{1} \left[ R_i \leq c \right]$ is a relevant but not an exact predictor of  of $D_{i}$. Fuzzy regression discontinuity is a limiting form of instrumental variables in which $\left( y_{i0} - y_{i1} \right) \independent z_{i} | R_{i}$.\\
+
+\noindent Formally, let $z_{i}$ satisfy the linear instrumental-variable setting assumptions and assume that $\mathbb{E} \left[ y_{id} | R_i = r, \kappa = k \right]$ and $\Pr \left[ \kappa = k | R_i = r \right]$ are continuous at $r = c$, where $\kappa = \{$ \text{always takers}, \text{never takers}, \text{compliers} $\}$, then
+
+\begin{eqnarray}
+\mathbb{E} \left[ y_{i1} - y_{i0} | R_i = c, \text{compliers} \right] &=& 
+\frac{  \lim_{r \downarrow c} \mathbb{E} \left[ y_{i} | z_{i} = 1, R_{i} = r  \right] - \lim_{r \uparrow c} \mathbb{E} \left[ y_{i} | z_{i} = 0, R_{i} = r  \right] } {  \lim_{r \downarrow c} \mathbb{E} \left[ D_{i} | z_{i} = 1, R_{i} = r  \right] - \lim_{r \uparrow c} \mathbb{E} \left[ D_{i} | z_{i} = 0, R_{i} = r  \right] } \nonumber \\
+&=&\frac{  \lim_{r \downarrow c} \mathbb{E} \left[ y_{i} | R_{i} = r  \right] - \lim_{r \uparrow c} \mathbb{E} \left[ y_{i} | R_{i} = r  \right] } {  \lim_{r \downarrow c} \mathbb{E} \left[ D_{i} | R_{i} = r  \right] - \lim_{r \uparrow c} \mathbb{E} \left[ D_{i} | R_{i} = r  \right] }.
+\end{eqnarray}
+
+\noindent where the equality follow because, at the limit, $z_i$ becomes redundant. Fuzzy RDD, therefore, identifies a LATE that is local to compliers at the cutoff, which is not necessarily a parameter of interest. This is also true for the parameter that sharp RDD identifies. Therefore, the critiques to LATE discussed in the linear IV case apply here.\\
+
+\noindent \textbf{Practice.} Non-parametric identification at the cutoff suggests using individuals at the cutoff for estimation. However, $y_{i0}$ is not observed if $R_{i} \geq c$ and there could be few observations for whom $R_{i} = c$ to estimate $y_{i1}$. Thus, researchers usually employ observations for whom $R < c $ and $R \geq c $ to form separate estimators of $\mathbb{E} \left[ y_{i} | R_{i} \right] $.\\
+
+\noindent Verifications of the empirical design include inspections of $\mathbb{E} \left[ D_i | R_i = r \right]$, $\mathbb{E} \left[ y_i | R_i = r \right]$ and $\mathbb{E} \left[ z_i | R_i = r \right]$ for falsification covariates.\\ 
+
+\noindent \textbf{Implementation Basics.} In the sharp case, a regression allows for estimation of $\mathbb{E} \left[ y_{i}^d | R_{i} = r \right]$: 
+\begin{equation}
+y_{i} = \alpha + \theta \cdot D_{i} + g \left( R_i \right) + \varepsilon_{i}, 
+\end{equation}
+\noindent for an unknown functions $g \left( \cdot \right)$. Polynomials or other semi-parametric functions of $R_{i} - c$ are usual proxies. Importantly, 
+
+\begin{itemize}
+\item Can be estimated as locally in the interval $R_{i} \in \left[ h - c, h + c \right]$ and let $h$ be as small as the data permits. 
+\item Other covariates could be added. 
+\item Standard errors are straightforward to recover (or if not use bootstrap)
+\item Extends to fuzzy designs with $z_{i}$ as an instrument for $D_{i}$ in 
+\begin{equation}
+y_{i} = \alpha + \theta \cdot D_{i} + \theta_l \cdot \bm{1} \left[ R_i < c \right]  + \theta_h \cdot \bm{1} \left[ R_i \geq c \right]  + \varepsilon_{i}.
+\end{equation}
+\end{itemize}
+
+\end{document}

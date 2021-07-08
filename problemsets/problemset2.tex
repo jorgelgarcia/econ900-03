@@ -1,0 +1,45 @@
+%Input preamble
+\input{preamble}
+\let\counterwithout\relax
+\let\counterwithin\relax
+\definecolor{maroon}{HTML}{4B0082}
+
+\begin{document}
+
+\noindent \textbf{900-03: Econometrics II: Advanced Regression Analysis and Empirical Design}\\
+\noindent Instructor: Jorge Luis García. e-mail: jlgarci@clemson.edu\\
+\noindent \textbf{Problem Set 2.} \\
+
+\noindent \textbf{Submission instructions for empirical part:} Push the code for each empirical problem separately with the name problem``numberofproblem"\_``yourlastname".do. Do so to a folder in the repository called problemset2 (you need to create that folder in your local). \textit{Do not e-mail me your code}.  \textbf{Submission instructions for theory part:} Place a .pdf with your answer in the Box folder econ900/econ900-03/problemset2. \textit{Do not e-mail your pdf}.\\
+
+\noindent \textbf{Due date:} 11/6/2020 at 8:00 p.m.\\
+
+\noindent \textbf{Grading:} Each item of each question of each problem is worth one point. This problem set is not graded on completion. If you copy-down solutions found online, your grade for the problem sets of all of the course will be 0.\\
+
+\noindent \textbf{Problem 1. Problem 1 of Chapter 9 of \citet{greene_econometric_2008}.}\\
+
+\noindent \textbf{Problem 2. Problem 2 of Chapter 9 of \citet{greene_econometric_2008}.}\\
+
+\noindent \textbf{Problem 3. Problem 5 of Chapter 9 of \citet{greene_econometric_2008}.}\\
+
+
+\noindent \textbf{Problem 4. Application 1 of Chapter 9 of \citet{greene_econometric_2008}. In d., use an F-test instead of a Lagrange-multiplier test.}\\
+
+\noindent I am referring to the numbering in the 6\textsuperscript{th} edition.\\
+
+\noindent \textbf{Problem 5. Grouped Regression.}\\
+
+\noindent Consider the linear model 
+\begin{equation} 
+y_{it} = \alpha_0 + \alpha_1 x_{it} + \varepsilon_{it}, 
+\end{equation}
+\noindent where the usual notation applies and $x_{it} \independent \varepsilon_{it}$. Note that $x_{it}$ is a scalar.  Suppose that $x_{it} = W_{kt}$, where $k$ indexes a ``group.'' That is,  $x_{it}$ does not vary at the individual $i$ level; instead, it varies at the group-$k$ level. Show that the OLS estimator of $\alpha_1$ is identical to the weighted least-squares estimator of the following ``grouped'' regression: 
+\begin{equation} 
+Y_{kt} = \alpha_0 + \alpha_1 W_{kt} + \varepsilon_{kt}, 
+\end{equation}
+\noindent where $Y_{kt}$ is the group-$k$ average of $y_{it}$ and the weight for group $k$ is the number of observations in the $k$ group, $n_{k}$.\\
+ 
+\bibliographystyle{chicago}
+\bibliography{econed}
+
+\end{document}

@@ -1,0 +1,75 @@
+%Input preamble
+\input{preamble}
+\let\counterwithout\relax
+\let\counterwithin\relax
+\definecolor{maroon}{HTML}{4B0082}
+
+\begin{document}
+
+\noindent \textbf{Event Studies.}\\
+\noindent Jorge Luis García \\
+\noindent e-mail: jlgarci@clemson.edu\\
+
+
+\noindent \textbf{Notation.} Let $y_{it}$ be the outcome of interest for individual $i \in \mathcal{I}$ at time $t \in \mathcal{T}$, where $\mathcal{I}$ and  $\mathcal{T}$ index individuals and time. $D_{it}$ indicates if individual $i$ is being treated at time $t$. Treatment is an absorbing state that begins in $E_{i}$ (i.e.,\ in the event). That is, $D_{it} = 1$ iff $t \geq E_{i}$. Else $D_{it} = 0$.\\
+
+\noindent \textbf{Counterfactuals.} $y_{it} \left( e \right)$ is the outcome for individual $i \in \mathcal{I}$ at time $t \in \mathcal{T}$ when $E_{i}$ is fixed to $e \in \{0, \ldots, T, \infty \}$. $E_{i}$ fixed to $\infty$ denotes that the event does not happen. Let $D_{i}:= \left( D_{i0}, \ldots, D_{iT} \right)$. If $E_{i} = e$, $D_{i}:= \left( 0, \ldots, 0, 1, \ldots 1 \right)$, where $D_{ie-1} = 0$ and $D_{ie} = 1$. If $E_{i} = \infty$, $D_{i}:= \left( 0, \ldots, 0 \right)$.\\
+
+\noindent \textbf{Parameter of Interest.} The parameter of interest is the average treatment effect at $t \geq e$: 
+\begin{equation}
+\text{ATE} \left( e \right)_{t}:= \mathbb{E} \left[ y_{it} \left( e \right) | E_{i} = e \right] - \mathbb{E} \left[ y_{it} \left( \infty \right) | E_{i} = e \right]. \label{eq:atee}
+\end{equation}
+
+\noindent Note that fixing to $\infty$ ``plays the role'' of the control or no treatment state. It is convenient for the fixing thought experiment to conceptualize the \textit{control state} as a state where the treatment ``starts'' in $\infty$.\\
+
+\noindent \textbf{Identification Challenge.} If we observe a subsample for which $E_{i} = e = t$, we are able to identify $\mathbb{E} \left[ y_{it} \left( e \right) | E_{i} = e \right]$, but not  $\mathbb{E} \left[ y_{it} \left( \infty \right) | E_{i} = e \right]$ which is unobserved.\\
+
+\noindent \textbf{Quasi-experimental Identification Assumptions.} Identification requires two assumptions: parallel trends and no anticipation. To clarify these assumptions, write what we cannot observe, for any $s < t$, as follows 
+\begin{eqnarray}
+\mathbb{E} \left[ y_{it} \left( \infty \right) | E_{i} = e \right] = \mathbb{E} \left[ y_{is} \left( \infty \right) | E_{i} = e \right] + \mathbb{E} \left[ y_{it} \left( \infty \right)  - y_{is} \left( \infty \right) | E_{i} = e \right]. \label{eq:control}
+\end{eqnarray}
+
+\begin{itemize}
+\item \textbf{Parallel Trends:} is analogous to the parallel-trends assumption in two-period, two-group difference-in-difference designs. The $s$ to $t$ change in the \textit{control state} is parallel across groups for which $E_{i} = e$ and $E_{i} = \infty$: 
+\begin{equation}
+\mathbb{E} \left[ y_{it} \left( \infty \right) - y_{is} \left( \infty \right) | E_{i} = e \right] = \mathbb{E} \left[ y_{it} \left( \infty \right) - y_{is} \left( \infty \right) | E_{i} = \infty \right]. \label{eq:parallel}
+\end{equation}
+\noindent Note that this is an assumption about no selection in the \textit{control states}, as in difference-in-differences. 
+\item \textbf{No anticipation (i.e.,\ No Ashenfelter Dips):} rules out anticipation (in expectations) of treatment before $e$ for an individual for whom $E_{i} = e$: 
+\begin{equation}
+\mathbb{E} \left[ y_{is} \left( \infty \right) | E_{i} = e \right] = \mathbb{E} \left[ y_{is} | E_{i} = e \right] \text{ for $s < e$.}
+\end{equation}
+\noindent That is, before the event, individual $i$ (in expectations) approximates well their control state in the \textit{control state}. 
+\end{itemize}
+
+\noindent \textbf{Identification of the Parameter of Interest.} \textit{No anticipation} directly identifies the first term of the right-hand side in Equation~\eqref{eq:control}
+\begin{equation}
+\mathbb{E} \left[ y_{is} \left( \infty \right) | E_{i} = e \right]  = \mathbb{E} \left[ y_{is} | E_{i} = e \right]. 
+\end{equation}
+
+\noindent \textit{Parallel trends} together with \textit{No anticipation} imply that, for $e' > t$, 
+
+\begin{eqnarray}
+\mathbb{E} \left[ y_{it} \left( \infty \right) - y_{is} \left( \infty \right) | E_{i} = e \right] &=& \mathbb{E} \left[ y_{it} \left( \infty \right) - y_{is} \left( \infty \right) | E_{i} = \infty \right] \nonumber \\ 
+&=& \mathbb{E} \left[ y_{it}  - y_{is} | E_{i} = e' \right]. \label{eq:parallel}
+\end{eqnarray}
+
+\noindent Thus, 
+\begin{equation}
+\text{ATE} \left( e \right)_{t}:= \mathbb{E} \left[ y_{it} - y_{is} | E_{i} = e \right] - \mathbb{E} \left[ y_{it}  - y_{is} | E_{i} = e' \right] \text{ for $e' > t \geq e > s$ }.
+\end{equation}
+
+\noindent In general, $\text{ATE} \left( e \right)_{t}$ for $t = 1, \ldots T$ for $t > e$ are of interest.\\
+
+\noindent \textbf{Intuition.} The event-study estimator, $\text{ATE} \left( e \right)_{t}$, is analogous to the two-period, two-group difference-in-differences estimator. The first term is the first difference and it is identified using the treated individuals. It provides the after-before event change in the outcome due to treatment and trend. The second term is the second difference and it is identified using untreated individuals. It provides the after-before event change in the outcome due to trend. The difference in the differences clears the trend.\\
+
+\noindent \textbf{Regression Framework.} Under the identification assumptions, the regression framework 
+\begin{eqnarray}
+y_{it} = \lambda_{t} + \lambda_{e} + \beta \cdot \bm{1} \left[ t \geq E_{i} \right] + \varepsilon_{it}, 
+\end{eqnarray}
+\noindent where $\lambda_{t}$ and $\lambda_{e}$ are time and event-start units fixed effects, recovers a weighted average of the $\text{ATE} \left( e \right)_{t}$. If the panel is unbalanced in the time and event-start units space, the weights could have undesirable properties. The ``best''  $\text{ATE} \left( e \right)_{t}$ is a researcher's choice. 
+
+\singlespacing
+\bibliographystyle{chicago}
+\bibliography{bib}
+\end{document}

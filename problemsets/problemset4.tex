@@ -1,0 +1,76 @@
+%Input preamble
+\input{preamble}
+\let\counterwithout\relax
+\let\counterwithin\relax
+\definecolor{maroon}{HTML}{4B0082}
+
+\begin{document}
+
+\noindent \textbf{900-03: Econometrics II: Advanced Regression Analysis and Empirical Design}\\
+\noindent \textbf{Wednesdays and Fridays, 10:00 to 11:30}\\
+\noindent \textbf{Location: TBA}\\
+\noindent Instructor: Jorge Luis García \\
+e-mail: jlgarci@clemson.edu\\
+
+\noindent \textbf{Problem Set 4.}\\
+
+\noindent \textbf{Problem 1. Selection and Instrumental Variables.} Let the potential outcomes of a program be generated as follows
+\begin{eqnarray} 
+y_{i0} &=& \mu_0 + u_{i0} \\ \nonumber 
+y_{i1} &=& \mu_1 + u_{i1}, \nonumber 
+\end{eqnarray}
+
+\noindent where the usual notation applies. If choosing treatment, $d = 1$, individuals pay $c_{i}= k$. The selection to the program is based on gains: $D_{i} = 1$ iff $y_{i1} - y_{i0} - c_{i} \geq 0$.  
+\begin{enumerate} 
+\item Consider the linear model $y_{i} = \alpha + \beta_i \cdot D_{i} + \varepsilon_i$. What assumptions about the data-generating process does this model make? 
+\item Show that, in general, $\cov \left( \beta_i, \varepsilon_i \right) \neq 0$. 
+\item Define the ATE in this context. 
+\item Show that the OLS estimator of the ATE is not consistent. 
+\item Design a binary lottery allowing you to identify and estimate the average of $\beta_i$ using instrumental variables.
+\end{enumerate}
+
+\noindent \textbf{Problem 2. Normal, Polynomial Selection.} Allow for the following specificities to hold in the framework of \textbf{Problem 1}: 
+
+\begin{eqnarray} 
+\mu_1 \left( x \right) &=& a + b \cdot x + c \cdot x^2 \nonumber \\
+\mu_0 \left( x \right) &=& m,
+\end{eqnarray}
+
+\noindent where $a,b,c$ and $m$ are real numbers and $x$ is a realization of the random variable $\bm{x_{i}}$. Economists usually call that random variable a regressor.
+
+\begin{enumerate}
+\item Let $u_{id} \sim \mathcal{N} \left( 0 , \sigma_d^ 2 \right)$. Derive the probability of selection into treatment. Do you need to make any additional assumptions? State them clearly.
+\item Provide a strategy to identify and estimate the parameters of the model. 
+\item Suppose that $c_i = k$ and that the analyst knows $k$. What parameters are identified?
+\item How many observations do you need to estimate the decision model? 
+\item With the minimum amount of observations, what are the standard errors of the estimates?
+\item Suppose that $c_i$ varies across individuals and that the analyst knows it for many observations. What parameters are identified? 
+\end{enumerate}
+
+\noindent \textbf{Problem 3. Non-Parametric and Normal Generalized Roy Models.} Consider the following specification of the model in \textbf{Problem 1}:
+\begin{eqnarray} 
+y_{i0} &=& \mu_0 \left( x \right)  + u_{i0}  \nonumber \\
+y_{i1} &=& \mu_1 \left( x \right)  + u_{i1}   \nonumber \\
+D_{i}^* &=& \mu_{z} \left( z \right) - v_i     \nonumber \\
+D_{i} &=& \bm{1} \left[ D_{i}^* \geq 0 \right], 
+\end{eqnarray}
+
+\noindent where the usual notation applies. 
+\begin{enumerate} 
+\item Describe and compare the program evaluation and selection problems. 
+\item Consider a general, non-parametric selection model and derive $\mathbb{E} \left[ y_{i} | D_i = D, X = x, Z= z \right]$ for $d = 0,1$. 
+\item Derive the ATE, ATT, and ATU 
+\item Provide identification conditions. 
+\item Consider a normal selection model where $u_{id} \sim \mathcal{N} \left( 0, \sigma_d^2 \right)$ for $d = 0,1$, $v_i \sim \mathcal{N} \left( 0, \sigma_v^2 \right)$, $\cov \left( u_{i0}, u_{i1} \right) = \sigma_{01}$,  and $\cov \left( u_{id}, v_{i} \right) = \sigma_{dv}$ for $d = 0,1$. Derive $\mathbb{E} \left[ y_{i} | D_i = D, X = x, Z= z \right]$ for $d = 0,1$. 
+\item Derive the ATE, ATT, and ATU
+\item Provide identification conditions. 
+\end{enumerate}
+
+
+
+
+
+
+
+
+\end{document}

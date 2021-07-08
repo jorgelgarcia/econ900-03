@@ -1,0 +1,106 @@
+%Input preamble
+\input{preamble}
+\let\counterwithout\relax
+\let\counterwithin\relax
+\definecolor{maroon}{HTML}{4B0082}
+
+\begin{document}
+
+\noindent \textbf{Diff-in-Diff Frameworks.}\\
+\noindent Jorge Luis García \\
+\noindent e-mail: jlgarci@clemson.edu\\
+
+\noindent Difference-in-differences is an empirical strategy allowing for identification of the Average Treatment on the Treated (ATT) under an assumption that is commonly referred to as \textit{parallel trends}. The setting of diff-in-diff is longitudinal data.\\
+
+\noindent \textbf{Data Structures.} In basic econometrics, the objective is to analyze datasets where each individual is observed one single time. This data structure is called \textit{cross sectional}. For example, a researcher observes the grades for a group of students who take an econometrics class.\\ 
+
+\noindent In classic macroeconomics, it is often the case that the objective is to analyze one individual or unit, which is observed in multiple time periods. This data structure is called \textit{time series}. For example, a researcher observes a time series of the GDP of the United States on a yearly basis for the period 1950-2000.\\
+
+\noindent A longitudinal dataset is a combination of cross-sectional and time series data. For example, a researcher observes the grades of a group of students over their four years of college. They have, for example, the GPA for each student in each year of college. The researcher has a panel of the GPA for these students. There are two types of panels:
+\begin{itemize}
+\item When all of the individuals are observed the same number of times, the panel is \textit{balanced}. For example, the researcher observes the GPA for the four years for all of the students who graduate. However, a fraction of the students quit college and, therefore, for some of them they only observe the GPA for the years in which the students remained enrolled.  
+\item When different individuals are observed in different numbers of periods, the panel is \textit{unbalanced}. For example, the researcher observes the GPA for all of the students for the four years because all of them graduate. 
+\end{itemize}
+
+\noindent \textbf{The Basic Setup: Two Periods and Two Groups.} Consider a two-period panel dataset and let $t$ index time. Before the policy, $t = 0$. After the policy, $t = 1$. Before the policy in $t = 0$, no unit in the dataset receives the policy (i.e., everyone is untreated). That is, $D_{i0} = 0$. After the policy in $t = 1$, one group receives the policy (treatment group) and one group does not (control group). For the treatment group, $D_{i1} = 1$. For the control group, $D_{i1} = 0$. \\
+
+\noindent \textbf{Counterfactual Outcomes.} In $t = 0$, treatment does not exist. For both groups, the counterfactual outcome is $Y_{i0}^0$. In $t = 1$, the observed counterfactuals are $Y_{i1}^1$ if $D_{i1} = 1$ and $Y_{i1}^0$ if $D_{i1} = 0$. Using the switching model in \citet{quandt_new_1972}, the observed outcome is\\
+\begin{equation}
+Y_{it} = D_{it} \cdot Y_{it}^1 +  \left( 1 - D_{it} \right) \cdot Y_{it}^0.
+\end{equation}
+
+\noindent \textbf{The Difference-in-difference Estimator.} The difference-in-difference estimator is derived by construction. That is, differences are formed, assumptions on them imposed, and parameters identified. First consider the unconditional after-before observed difference
+\begin{eqnarray} 
+Y_{i1} - Y_{i0} &=& \left[ D_{i1} \cdot Y_{i1}^1 +  \left( 1 - D_{i1} \right) \cdot Y_{i1}^0 \right] + \left[ D_{i0} \cdot Y_{i0}^1 +  \left( 1 - D_{i0} \right) \cdot Y_{i0}^0 \right] \nonumber \\ 
+		      &=& D_{i1} \cdot \underbrace{\left[  Y_{i1}^1 -  Y_{i1}^0 \right]}_{\text{after-treatment difference in } t = 1}  + \underbrace{\left[  Y_{i1}^0 -  Y_{i0}^0 \right]}_{\text{after-time difference in no-treatment}} \label{eq:basediff}
+\end{eqnarray}
+
+\noindent From Equation~\eqref{eq:basediff}, the conditional differences are formed.
+	\begin{itemize} 
+		\item First difference (\ldots for the treatment group): 
+			\begin{eqnarray}
+				\mathbb{E} \left[ Y_{i1} - Y_{i0} | D_{i1} = 1 \right] &=& \mathbb{E} \left[  Y_{i1}^1 -  Y_{i1}^0 | D_{i1} = 1 \right]  + \mathbb{E}  \left[  Y_{i1}^0 -  Y_{i0}^0 | D_{i1} = 1\right] \label{eq:basefirst}
+			\end{eqnarray}
+		\item Second difference (\ldots for the control group):
+			\begin{equation}
+				\mathbb{E} \left[ Y_{i1} - Y_{i0} | D_{i1} = 0 \right] =  \mathbb{E}  \left[  Y_{i1}^0 -  Y_{i0}^0 | D_{i1} = 0 \right]
+			\end{equation}
+	\end{itemize}
+\noindent Importantly, note that the first term in Equation~\eqref{eq:basefirst} is the ATT. That is, 
+\begin{equation}
+\text{ATT} = \mathbb{E} \left[  Y_{i1}^1 -  Y_{i1}^0 | D_{i1} = 1 \right]. 
+\end{equation}
+
+\noindent The difference in differences is the difference between the first and second differences: 
+\begin{equation}
+\text{Diff-in-diff} =  \text{ATT}  + \mathbb{E}  \left[  Y_{i1}^0 -  Y_{i0}^0 | D_{i1} = 1\right] -  \mathbb{E}  \left[  Y_{i1}^0 -  Y_{i0}^0 | D_{i1} = 0 \right]. \label{eq:diffindiff}
+\end{equation}
+
+\noindent \textbf{Parallel Trends.} Fundamentally, the first and second differences are observed in the data. Thus, the difference in differences is observed too. The difference-in-differences identifies the ATT under the \text{parallel trends assumption} (PTA):
+\begin{eqnarray} 
+\text{PTA} &:&  \mathbb{E}  \left[  Y_{i1}^0 -  Y_{i0}^0 | D_{i1} = 1\right] =  \mathbb{E}  \left[  Y_{i1}^0 -  Y_{i0}^0 | D_{i1} = 0 \right].
+\end{eqnarray}
+
+\noindent The parallel trends assumption is an assumption about the after-before change in the no-treatment counterfactual. It is an assumption that postulates absence of selection on the change in the no-treatment counterfactual. Precisely, it assumes that this change is the same for the treatment and control groups. The PTA is not testable. Evidence in favor of it is accumulated when observation in $t < 0$ are available. Because treatment starts in $t = 1$, data available in $t < 0$ allows to verify
+\begin{eqnarray} 
+\text{PTA'} &:&  \mathbb{E}  \left[  Y_{it}^0 -  Y_{i{t-1}}^0 | D_{i1} = 1\right] =  \mathbb{E}  \left[  Y_{it}^0 -  Y_{i{t-1}}^0 | D_{i1} = 0 \right] \text{ for } t \leq  0
+\end{eqnarray}
+
+\noindent However, PTA $\neq$ PTA'. Researches postulate that, if PTA' holds, then PTA is also likely to hold. However, this is suggestive evidence. PTA cannot be directly verified because $\mathbb{E}  \left[  Y_{i1}^0 -  Y_{i0}^0 | D_{i1} = 1\right]$ is not observed.\\
+
+\noindent Difference-in-differences is an identification strategy that relies on the parallel trends assumption while allowing for more realistic or concerning sources of selection. For example, it allows for 
+\begin{itemize}
+\item Selection no-treatment counterfactual levels, $\mathbb{E}  \left[  Y_{it}^0 | D_{i1} = 1\right]  \neq \mathbb{E}  \left[  Y_{it}^0 | D_{i1} = 0 \right]$.  
+\item Selection on treatment gains, $\mathbb{E}  \left[  Y_{i1}^1 -  Y_{i{0}}^0 | D_{i1} = 1\right] \neq  \mathbb{E}  \left[  Y_{i1}^1 -  Y_{i{0}}^0 | D_{i1} = 0 \right]$.
+\end{itemize}
+\bigskip
+\textbf{Regression Framework.} An alternative for estimating the difference-in-difference estimator of the ATT is to use the following regression
+\begin{eqnarray}
+Y_{it} = \beta_0 + \beta_1  \cdot \bm{1}\left [ t = 1 \right] + \beta_2  \cdot \bm{1} \left [ \text{treatment}_i = 1\right] + \beta_3  \cdot \bm{1} \left[ D_{i1} = 1\right] + \varepsilon_i, 
+\end{eqnarray}
+\noindent where $\bm{1} \left [ \cdot \right]$ is an indicator function, taking the value one if the statement in the argument is true and zero otherwise. $\text{treatment}_i = 1$ if the individual belongs to the treatment group. $D_{i1} = 1$ if the individual is in the treatment group and if the observation is in $t = 1$. $\varepsilon_i$ is an error. OLS provides an estimate of diff-in-diff, $\hat{\beta}_3$. \\
+
+\noindent Regression is useful because it provides a direct way to estimate standard errors and a framework to add control variables (and therefore reduce the variance).\\
+
+\noindent \textbf{Threats to Identification.} A convenient aspect of the difference-in-difference identification strategy is that it is possible to discuss threats to identification concretely. That is, it is possible to ask if $\text{PTA}$ is satisfied in the pertinent context. These are some critiques: 
+\begin{itemize} 
+\item The assumption depends of a functional form. 
+\item There could be group-specific time trends. 
+\item There could be composition effects (of the treatment groups).
+\item Differential unobserved, underlying trends.
+\end{itemize}
+
+\noindent \textbf{Additional Aspects.} Improvements to difference-in-differences include
+\begin{itemize}
+	\item Changes in changes as in \citet{athey_identification_2006}. 
+	\item Including multiple treatment groups in which timing of treatment starts in different years, including the considerations in \citet{goodman-bacon_difference--differences_2018}. 
+	\item Synthetic-control methods developed in \citet{kellogg_combining_2020}. 
+\end{itemize}
+\noindent \textbf{Inference.} Inference procedures are discussed, for example, in \citet{bertrand_how_2004}. 
+
+\singlespacing
+\bibliographystyle{chicago}
+\bibliography{bib}
+\end{document}
+
+

@@ -1,0 +1,87 @@
+%Input preamble
+\input{preamble}
+\let\counterwithout\relax
+\let\counterwithin\relax
+\definecolor{maroon}{HTML}{4B0082}
+
+\begin{document}
+
+\noindent \textbf{900-03: Econometrics II: Advanced Regression Analysis and Empirical Design}\\
+\noindent Instructor: Jorge Luis García \\
+e-mail: jlgarci@clemson.edu\\
+
+\noindent \textbf{Submission instructions for empirical part:} Push the code for each empirical problem separately with the name problem``numberofproblem"\_``yourlastname".do. Do so to a folder in the repository called problemset1 (you need to create that folder in your local). \textit{Do note e-mail me your code}.\\
+
+\noindent \textbf{Submission instructions for theory part:} Place a .pdf with your answer in the Box folder econ900/econ900-03/problemset1. \textit{Do note e-mail your pdf}.\\
+
+\noindent \textbf{Due date:} 10/28/2020 at 8:00 a.m.\\
+
+\noindent \textbf{Grading:} Each item of each question of each problem is worth one point.\\
+
+\noindent \textbf{Problem 1. Practicing the Bootstrap.} Consider the bivariate sample model for $i \in \mathcal{I}$: 
+\begin{eqnarray}
+	y_i = a + b \cdot D_i + e_i, \label{eq:model}
+\end{eqnarray}
+
+\noindent where $a$, $b$, and $D_i$ are identical to those in the class exercise.\\
+
+\noindent In this exercise, you will simulate $y_i$ under different assumptions for $e_i$. Perform your simulations of the data generating process in Equation~\eqref{eq:model} with 1,000 observations. Create your bootstrap distributions with 500 re-samplings.
+
+\begin{enumerate}
+	\item Suppose that $e_i \sim \mathcal{N} \left( 0, 4 \right)$ for all $i$ in $\mathcal{I}$. Simulate $y_i$ for all $i$ in $\mathcal{I}$.
+	\item Test the following hypotheses
+\begin{eqnarray}
+H_0 &:& a = 1 \nonumber \\ 
+H_1 &:& a > 1 \label{eq:hypo}
+\end{eqnarray}
+\noindent with significance of $1\%$ using a few different tools:
+\begin{enumerate}
+	\item a $t$ statistic with homoskedastic standard errors. 
+	\item a $t$ statistic with robust i.i.d. standard errors.
+	\item a $t$ statistic with i.i.d. bootstrapped standard errors. 
+	\item a non-parametric $p$-value.
+	\item in your code, comment on the difference between theses tests (if any). To inform this discussion, plot the null bootstrap distribution  associated with the null hypothesis and the point estimate in the same plot. 
+\end{enumerate}
+	\item Suppose now that the error term is determined in two steps. First, a uniform $u_i \sim \mathcal{U} \left[ 0, 1 \right]$ samples for all $i$ in $\mathcal{I}$. This determines the distribution of $e_i$ as follows
+\begin{align}
+e_i \sim \left\{ \begin{array}{ccc} 
+                \mathcal{N} \left( 0, 1 \right) & \text{ if } & u_i \in \left[0, .2 \right) \\ \\ 
+                \mathcal{N} \left( 0, 2 \right) & \text{ if } & u_i \in \left[.2, .4 \right) \\ \\
+                \mathcal{N} \left( 0, 3 \right) & \text{ if } & u_i \in \left[.4, .6 \right) \\ \\
+                \mathcal{N} \left( 0, 5 \right) & \text{ if } & u_i \in \left[.6, 1 \right] \\
+                \end{array} \right.
+\end{align}
+\noindent Simulate $y_i$ for all $i$ in $\mathcal{I}$. 
+	\item In your code, answer: Is $\cov \left( D_i, e_i \right) = 0$?
+	\item Provide an empirical answer for the previous question. 
+	\item Is the error homoskedastic? Plot $\mathbb{E} \left[ y_i | D_i \right]$ for each value of $D_i$  to inform your answer.
+	\item In your code answer: What is the best procedure to test the hypotheses in System~\eqref{eq:hypo}. 
+	\item Implement the test based on your answer to the previous question.
+\end{enumerate}
+
+\noindent \textbf{Problem 2. A Simple Binary-response Model.} Consider the following data
+
+\begin{center}
+\begin{tabular}{c|cccccccccc}
+	$y_i$ & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 1 \\ \midrule
+	$x_i$ & 9 & 2 & 5 & 4 & 6 & 7 & 3 & 5 & 2 & 6
+\end{tabular}, 
+\end{center}
+
+\noindent where $y_i$ is a binary-response dependent variable and $x_i$ is an independent variable. Suppose that exogeneity holds. 
+
+\begin{enumerate}
+	\item Write a code to estimate the marginal effect of $x_i$ on $y_i$ using a linear regression that includes a constant. Let $\hat{b}$ denote your estimate. 
+	\item Test the following hypotheses
+\begin{eqnarray}
+H_0 &:& b = 1 \nonumber \\ 
+H_1 &:& b > 1 \label{eq:hypo2}
+\end{eqnarray}
+\noindent using a $t$ statistic and being careful with the standard error that you choose to employ. 
+	\item Estimate the marginal effect of $x_i$ on $y_i$ using a probabilistic regression. 
+	\item Estimate the marginal effect of $x_i$ on $y_i$ using a logistic regression. 	
+	\item In your code, comment: How do the marginal effects differ across models?
+\end{enumerate}
+
+\noindent \textbf{Problem 3. Probit Problems.} Let $n$ be the number of individuals in the sample, which you can partition into three blocks of size $n_1$, $n_2$, and $n_3$ with $n_1 + n_2 + n_3 = n$. The dependent variable of interest is binary and so is the (only) independent variable. For all of the individuals in the first block, $y_i = 1$ and $x_i = 1$. For all of the individuals in the second block, $y_i = 0$ and $x_i = 1$. For all of the individuals of the third block, $y_i = 0$ and $x_i = 0$. Show that there is no solution for the ML estimator of either the Probit or the Logit models. Interpret your answer.
+\end{document}

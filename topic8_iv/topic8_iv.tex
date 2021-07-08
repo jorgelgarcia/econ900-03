@@ -1,0 +1,112 @@
+%Input preamble
+\input{preamble}
+\let\counterwithout\relax
+\let\counterwithin\relax
+\definecolor{maroon}{HTML}{4B0082}
+
+\begin{document}
+
+\noindent \textbf{Instrumental Variables.}\\
+\noindent Jorge Luis García \\
+\noindent e-mail: jlgarci@clemson.edu\\
+
+\noindent \textbf{Notation.} Consider the linear model 
+\begin{equation}
+y_{i} = \alpha + \beta \cdot D_{i} + \varepsilon_{i}, \label{eq:main}
+\end{equation}
+
+\noindent where $\alpha := \mathbb{E} \left[ y_{i}^0 \right]$, $\beta := \beta_{i}:= \left( y_{1}^1 - y_{i}^0 \right)$, $D_{i}$ is a binary variable indicating treatment take up, and $\varepsilon_{i}:= y_{i}^0 - \mathbb{E} \left[ y_{i}^0 \right]$. In addition, consider a binary variable, referred to as the instrument and denoted by $z_{i}$. This is the linear instrumental-variable setting. Differently from other setups, it is usually the case that a researcher first states the setup and then asks what $\beta$ identifies. A researcher is interested in using an instrument because $\mathbb{E} \left[ \varepsilon_{i} | D_{i} \right] \neq 0$.\\
+
+\noindent \textbf{Instruments, Treatment, and Counterfactuals.} The researcher postulates an instrument $z_{i}$ which affects (causes) the variable of interest (commonly treatment take up) $D_{i}$. $D_{i}$, in turn, causes $y_{i}$. The potential-outcomes setup is defined as follows: 
+\begin{itemize}
+\item $D_{iz}$ is treatment status when $z_{i}$ is fixed to $z$. 
+\item $y_{iz}^d$ outcome when $D_i$ and  $z_{i}$ are fixed to $d$ and $z$.  
+\end{itemize}
+\bigskip
+\noindent \textbf{Quasi-experimental Identification Assumptions.} 
+\begin{itemize}
+\item \textbf{Random assignment of the Instrument:} $y_{iz}^d, D_{iz}  \independent z_{i}$, for any values $d,z$. That is, the assignment of $z_{i}$ is independent of the realizations of the outcome or treatment take up.\\
+
+\noindent Random assignment suffices for identifying the ATE of $z_{i}$ on $y_{i}$. To see this, note that $\mathbb{E} \left[ y_{i} | z_{i} = 1 \right] - \mathbb{E} \left[ y_{i} | z_{i} = 0 \right] = \mathbb{E} \left[ y_{i1}^{D_{i1}} | z_{i} = 1 \right] - \mathbb{E} \left[ y_{i0}^{D_{i0}} | z_{i} = 0 \right] = \mathbb{E} \left[ y_{i1}^{D_{i1}} - y_{i0}^{D_{i0}} \right]$. This is called the reduced-form effect of $z_{i}$ on $y_{i}$ and it is rarely the parameter of interest on its own because $z_{i}$ is important in the causal chain but its effect on $y_{i}$ is not the end goal.\\ 
+
+\noindent Random assignment also suffices to identify the ATE of $z_{i}$ on $D_{i}$, which is referred to as the first stage.
+
+\item  \textbf{Exclusion Restriction:} $y_{i0}^d = y_{i1}^d$ for any value of $d$. That is, the instrument has no effect on $y_{i}$ on its own. Any effect should be trough its causing of $D_{i}$. This is expressed by \textit{excluding} $z_{i}$ from the model in Equation~\eqref{eq:main}. 
+Note that random assignment and exclusion are different assumptions. They are often not distinguished precisely. When random assignment and exclusion hold, the instrument is exogenous. 
+\item \textbf{First Stage or Relevance:} $\mathbb{E} \left[ D_{i1} - D_{i0} \right] \neq 0$. That is, $D_{i}$ is not a trivial function of the instrument. 
+\item \textbf{Uniformity (poorly referred to as Monotonicity):} Either $D_{i1} \geq D_{i0}$ or $D_{i1} \leq D_{i0}$. That is, the instrument affects everyone in the same direction. It does not require that the take up is a monotonic function of the instrument. It only requires that individual take up is uniformly affected by it. 
+\end{itemize}
+
+\noindent \textbf{Identification of the Parameter of Interest (?).} If the quasi-experimental assumptions hold, the two-step least squares instrumental-variables estimator identifies the Local Average Treatment Effect (LATE): 
+\begin{eqnarray}
+\beta^{\text{IV}} &=&  \mathbb{E} \left[ \beta | D_{i1} = 1, D_{i0} = 0 \right] \nonumber \\
+		         &=:& \mathbb{E} \left[ \beta | \text{compliers} \right]
+\end{eqnarray}
+\noindent That is, linear IV identifies the causal effect of $D_{i}$ on $y_{i}$ for individuals who \textit{comply with the instrument}. For compliers. $D_{i1} = 1$ and  $D_{i0} = 0$: They are pushed to treatment take-up by the instrument. Crucially, different instruments identify different LATEs. Thus, what IV identifies is not necessarily a parameter of interest.\\
+
+\noindent \textbf{Terminology.} It is usual for researchers to refer to the following groups: 
+\begin{itemize} 
+\item \textbf{Compliers:} $D_{i1} = 1$ and $D_{i0} = 0$ (i.e.,\ pushed in or out of treatment by the instrument). 
+\item \textbf{Always-takers:} $D_{i1} = 1$ and $D_{i0} = 1$. (i.e.,\ take treatment independently of the realization of the instrument).
+\item \textbf{Never-takers:} $D_{i1} = 0$ and $D_{i0} = 1$. (i.e.,\ do not take treatment independently of the realization of the instrument).
+\item \textbf{Defiers:} $D_{i1} = 0$ and $D_{i0} = 1$. (i.e.,\ ``anti complying''---uniformity only allows either compliers or defiers).
+\end{itemize}
+
+\noindent Almost by construction, this terminology is confusing. A complier could be a complier for one instrument but not for another. An always taker could be an always taker for one instrument for not for another, and thus they are not an always taker!\\
+
+
+\bigskip
+\noindent \textbf{Proof of Identification of LATE.} By random assignment, 
+\begin{equation}
+\mathbb{E} \left[ y_{i} | z_{i} = 1 \right] - \mathbb{E} \left[ y_{i} | z_{i} = 0 \right]  = \mathbb{E} \left[ y_{i1}^{D_{i1}} - y_{i0}^{D_{i0}} \right]. 
+\end{equation} 
+
+\noindent Additionally, note that 
+\begin{itemize} 
+\item \textbf{Probability of Being a Complier:} $\Pr \left( D_{i1} = 1, D_{i0} = 0 \right)$
+\item \textbf{Probability of Being an Always-taker:} $\Pr \left( D_{i1} = 1, D_{i0} = 1 \right)$
+\item \textbf{Probability of Being a Never-taker:} $\Pr \left( D_{i1} = 0, D_{i0} = 0 \right)$
+\item \textbf{Probability of Being a Defier:} $\Pr \left( D_{i1} = 0, D_{i0} = 1 \right) = 0$
+\end{itemize} 
+\noindent and that 
+\begin{equation}
+\mathbb{E} \left[ y_{i1}^{D_{i1}} - y_{i0}^{D_{i0}} |  \text{k} \right] = 0, 
+\end{equation}
+\noindent for $k = \text{always taker, never takers}$. Thus, 
+\begin{eqnarray} 
+\mathbb{E} \left[ y_{i1}^{D_{i1}} - y_{i0}^{D_{i0}} \right] &=& \mathbb{E} \left[ y_{i1}^{D_{i1}} - y_{i0}^{D_{i0}}  | \text{compliers} \right] \cdot \Pr \left( D_{i1} = 1, D_{i0} = 0 \right) \nonumber \\ 
+&\Leftrightarrow& \nonumber \\ 
+\frac{\mathbb{E} \left[ y_{i} | z_{i} = 1 \right] - \mathbb{E} \left[ y_{i} | z_{i} = 0 \right]}{ \mathbb{E} \left[ D_{i} | z_{i}  = 1 \right] - \mathbb{E} \left[ D_{i} | z_{i}  = 0 \right] } &=&  \mathbb{E} \left[ y_{i1}^{D_{i1}} - y_{i0}^{D_{i0}}  | \text{compliers} \right] \nonumber \\ 
+&=& \beta^{\text{IV}}, 
+\end{eqnarray}
+
+\noindent where $\mathbb{E} \left[ D_{i} | z_{i} = 1 \right] - \mathbb{E} \left[ D_{i} | z_{i} = = 0 \right] = \mathbb{E} \left[ D_{i1} - D_{i0} \right] = \Pr \left( D_{i1} = 1, D_{i0} = 0 \right)$ by random assignment.\\
+
+\noindent \textbf{Some Notes.} If all of the individuals comply to treatment for any instrument, then $\text{LATE} =\text{ATE}$. If not, the instrumental-variable framework is usually referred to as heterogeneous effects IV framework. In this framework: 
+\begin{itemize}
+\item An overidentifying-restriction test based on multiple instruments (Sargan Test) might reject even if all instruments are valid. 
+\item The policy relevance of $\beta^{\text{IV}}$ depends on the policy relevance of the the instrument. 
+\item It is impossible to distinguish who are the compliers and thus know more about the relevance of LATE. $z_{i} = 1$ and $D_{i1} = 1$ is true for compliers and always takers. $z_{i} = 0$ and $D_{i0} = 0$ is true for compliers and never takers.
+\item The size of the complying group is the first stage $\Pr \left( D_{i1} = 1, D_{i0} = 0 \right) = \mathbb{E} \left[ y_{i} | D_{i} = 1 \right] - \mathbb{E} \left[ y_{i} | D_{i} = 0 \right]$. 
+\item The size of the complying group taking up treatment is 
+\begin{equation}
+\Pr \left( D_{i1} = 1, D_{i0} = 0 | D_{i} = 1 \right) = \frac{  \Pr \left( z_{i} = 1 \right) \cdot  \left( \mathbb{E} \left[ D_{i} | z_{i} = 1 \right] - \mathbb{E} \left[ D_{i} | z_{i} = 0 \right] \right)  }{ \Pr \left( D_{i} = 1 \right) }. 
+\end{equation}
+\item It is possible to characterize the observed characteristics $\bm{x}_i$ of the complying group 
+\begin{equation}
+\frac{\Pr \left( \bm{x}_i = x | D_{i1} > D_{i0} \right)} { \Pr \left( \bm{x}_i = x \right) }= \frac{\mathbb{E} \left[ D_{i} | z_{i} = 1, \bm{x}_i = x \right] - \mathbb{E} \left[ D_{i} | z_{i} = 0, \bm{x}_i = x \right]}{ \mathbb{E} \left[ D_{i} | z_{i} = 1 \right] - \mathbb{E} \left[ D_{i} | z_{i} = 0 \right] }. 
+\end{equation}
+\end{itemize}  
+
+\noindent \textbf{Extensions.} This note describes the simplest case for binary treatment and one binary instrument. It is false that a regression framework allows for a direct generalization for the case of treatment of multiple categories and multiple instruments. Interesting extensions for application are: 
+
+\begin{itemize} 
+\item Identification of Counterfactual Distributions. \citet{imbens_estimating_1997}.
+\item Multiple Instruments. \citet{mogstad_identification_2019}. 
+\item Multiple Unordered Treatments. Theory: \citet{heckman_unordered_2018}. Application: \citet{kirkeboen_field_2016}. 
+\end{itemize} 
+
+\singlespacing
+\bibliographystyle{chicago}
+\bibliography{bib}
+\end{document}

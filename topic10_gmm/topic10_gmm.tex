@@ -1,0 +1,50 @@
+%Input preamble
+\input{preamble}
+\let\counterwithout\relax
+\let\counterwithin\relax
+\definecolor{maroon}{HTML}{4B0082}
+
+\begin{document}
+
+\noindent \textbf{Generalized Method of Moments.}\\
+\noindent Jorge Luis García \\
+\noindent e-mail: jlgarci@clemson.edu\\
+
+\noindent Throughout Econ 900-02 and Econ 900-03, three two estimators have been considered: OLS, IV, and ML. This estimators have a common feature: They exploit moment conditions motivated either by an algorithm (e.g.,\ first-order conditions of minimization or maximization problems) or an assumption (e.g.,\ an orthogonality condition).\\
+
+\noindent \textbf{OLS as a Method of Moments Estimator.} The first-order conditions of OLS lead to impose the empirical counterpart of the moment condition implied by the \textbf{Exogeneity} assumption. Thus, the OLS estimator is identical the the method-of-moments estimator based on the moment: 
+\begin{align}
+	\mathbb{E} \left[ \bm{x}_i' e_i \right] = \bm{0} 
+\end{align}
+\noindent with sample analog 
+\begin{align}
+	\frac{1}{N} \cdot \sum \limits _{i \in \mathcal{I}} \bm{x}_i' \hat{e}_i & =  \frac{1}{N} \cdot \sum \limits _{i \in \mathcal{I}} \bm{x}_i' \left( y - \bm{x}_i \cdot \bm{\hat{\beta}} \right)  
+	\nonumber \\ 
+	& = \bm{0}
+\end{align}
+\noindent which has $\bm{\hat{\beta}}^{\text{OLS}}$. In Econ 900-02, an analogous instrumental-variable estimator was formulated to exploit an orthogonality condition over an an instrumental variable $z_{i}$.\\
+
+\noindent \textbf{ML as a Method of Moments Estimator.} ML is also a a method-of-moment estimator. To see this, recall that ML estimators ($\bm{\hat{\theta}}$) solve 
+\begin{align}
+	\frac{1}{N} \frac{ \partial \ln L} { \partial \bm{\hat{\theta}} } & = \frac{1}{N}   \sum \limits _{i \in \mathcal{I}} \left[ \frac{ \partial \ln f \left( y_i \mid \bm{x}_i, \bm{\hat{\theta}} \right) } { \partial \bm{\hat{\theta}} } \right] \nonumber \\ 
+		\bm{0}
+\end{align}
+\noindent with population analog 
+\begin{align}
+	\mathbb{E} \left[ \frac{ \partial \ln f \left( y_i \mid \bm{x}_i, \bm{\theta} \right) } { \partial \bm{\theta} } \right] = \bm{0}
+\end{align}
+
+\noindent \textbf{Generalizing the Method of Moments (GMM).} Suppose that a model is characterizes by the K-dimensional parameter vector $\bm{\theta}$. Theory provides $L \geq K$ moment conditions: 
+\begin{align}
+	\mathbb{E} \left[ m_\ell \left( y_i, \bm{z}_i, \theta \right) \right] = 0 \text{ for } \ell = 1, \ldots L. 
+\end{align}
+\noindent with corresponding sample analog
+\begin{align}
+	\bar{m}_\ell \left( \bm{\theta} \right) & = \frac{1}{N} \sum \limits _{i \in \mathcal{I}} m_\ell \left( y_i, \bm{z}_i, \theta \right) \nonumber \\ & = 0 \text{ for } \ell = 1, \ldots L. 
+\end{align}
+
+\noindent If the $L$ equations are linearly independent, then there are multiple solution for $\bm{\theta}$. A possibility to obtain a unique solution is to minimize a quadratic criterion. For example, $\tilde{q} = \bar{\bm{m}}  \left( \bm{\theta} \right)' \bar{\bm{m}}  \left( \bm{\theta} \right)$, where $\bar{\bm{m}}  \left( \bm{\theta} \right)$ stacks the $L$ moment conditions. More generally, a weighted quadratic criterion is $q = \bar{\bm{m}}  \left( \bm{\theta} \right)' W_n \bar{\bm{m}}  \left( \bm{\theta} \right)$. In an analogy to the comparison between OLS and GLS, both the weighted and unweighted criterion yield consistent estimates. Generally, only the weighted criterion yields efficient estimates.\\
+
+\noindent In the criterion $\tilde{q}$, the moments are assumed to be homoskedastic. The weighted criterion $q$ allows the moments to correlate. Either criteria yield consistent estimates, so usually $W_n$ is chosen so that it minimizes the variance of $\bm{\hat{\theta}}$.  This is the generalizes method of moments with variance $W_n = V^{-1}$ with $V = \frac{1}{N} \left[ \bm{\Gamma}' \bm{\Phi} \bm{\Gamma} \right]$, $\bm{\Gamma}^j = \plim \left( \frac{ \partial \bar{m}_j} { \partial \bm{\theta} } \right)$, and $\bm{\Phi} = \var \left( \bm{\bar{m}} \right)$. The variance of $\bm{\hat{\theta}}$ could be obtained using the Delta method or the bootstraps.
+  
+\end{document}

@@ -1,0 +1,86 @@
+%Input preamble
+\input{preamble}
+\let\counterwithout\relax
+\let\counterwithin\relax
+\definecolor{maroon}{HTML}{4B0082}
+
+\begin{document}
+%\onehalfspacing
+
+\noindent \textbf{Models for Panel Data.}\\
+\noindent Jorge Luis García \\
+\noindent e-mail: jlgarci@clemson.edu\\
+
+\noindent In panel data, the dependent an explanatory variables for individual $i \in \mathcal{I}$ are observed for $t$ periods with $t = 2, \ldots, T$. Three sample (linear) models are usually considered:
+\begin{align}
+	\begin{array}{lccccccccccc}
+	\text{pooled regression} & : & y_{it} & = & & & & \bm{x}_{it} \cdot \bm{\beta} & + & e_{it} &  \nonumber \\ 
+	\text{fixed-effects regression} & : & y_{it} & = & \beta_{i0} & & + &  \bm{x}_{it} \cdot \bm{\beta}  & + & e_{it} & \nonumber \\ 
+	\text{random-effects regression} & : & y_{it} & = & & & &  \bm{x}_{it}  \cdot \bm{\beta} & + & e_{it} & + & \nu_{i} \nonumber \\ 
+	\end{array}
+\end{align}
+
+\noindent The \textit{pooled-regression model} does not make use of the panel structure of the data. It treats the different observations for the same individual as observations from different individuals. It employs the methods discussed in Econ 900-03.\\
+
+\noindent The \textit{fixed-effects regression model} allows for a individual-specific slope. In that case, the constant term is excluded from $\bm{x}_{it}$ to avoid multicollinearity.\\ 
+
+\noindent The \textit{random-effects regression model} allows for a composed error term.\\ 
+
+\noindent To the details now.\\
+
+\noindent \textbf{Fixed-Effects Regression Model.} The model for the sample is
+		\begin{align}
+			\bm{Y}_{N \cdot T \times 1} = \bm{X}_{\left( N \cdot T \right) \times \left( N+K \right)} \cdot \bm{B}_{\left( N+K \right) \times 1} + \bm{E}_{N \cdot T \times 1}
+		\end{align}
+\noindent where $\bm{Y} = \left[\bm{y}_1, \ldots, \bm{y}_N \right]'$ with  $\bm{y}_i = \left[y_{i1}, \cdots, y_{iT} \right]$; $\bm{X} = \left[ \bm{D} \ \vdots \ \bm{x} \right]$ with each row of $\bm{x}$ defined analogously to $\bm{Y}$; $\bm{D} = I_N \otimes \iota$ with $\iota = \left[ 1, \ldots, 1 \right]_{1 \times T}'$ and $\bm{E}_{N \cdot T \times 1}$ is defined analogously to $\bm{Y}_{N \cdot T \times 1}$.\\ 
+
+\noindent A fundamental specification aspect is that $\bm{x}$ cannot have elements that do not vary over time (e.g., sex, birthplace) because they would be collinear with the individual-level slopes. In practice, the slopes are said to ``contain'' variation in variables that do not vary over time.\\
+
+\noindent Under the following assumptions: 
+	\begin{enumerate}
+		\item ${\left( \bm{X}' \bm{X} \right)}^{-1}$ is invertible (no multicollinearity).
+		\item $\mathbb{E} \left[ \bm{E} \mid \bm{X} \right] = \bm{0}$ (note that this is very restrictive on the dynamics)
+		\item $\var \left( \bm{E} \mid \bm{X} \right) = \sigma^2 I_{N \cdot T}$. 
+	\end{enumerate}
+
+\noindent OLS is BLUE and provides individual-level slopes and the coefficients associated with $\bm{x}$. In this context, OLS is referred to as LSDV (least squares dummy variables) because of estimation of the individual-level slopes through the matrix dummy-variable matrix $\bm{D}$. To reiterate, the consistent estimators are: 
+
+\begin{align}
+	\bm{B}^{\text{LSDV}} & = {\left( \bm{X}' \bm{X} \right)}^{-1} {\left( \bm{X}' \bm{Y} \right)} \nonumber \\
+	\var \left( \bm{B}^{\text{LSDV}} \mid \bm{X} \right) & = \hat{\sigma}^{2,\text{LSDV}} \cdot {\left( \bm{X}' \bm{X} \right)}^{-1} \nonumber \\
+	\hat{\sigma}^{2,\text{LSDV}} &= \frac{\bm{\hat{E}}'\bm{\hat{E}}}{ N\cdot T - \left( N + K \right) } 
+\end{align}
+
+\noindent Importantly, all of the test procedures discussed in Econ 900-02 are readily available for this model.\\
+
+\noindent An important test is
+\begin{align}
+	H_0 & : \beta_{i0} = \beta_{j0} = 0 \nonumber \text{ for $i,j \in \mathcal{I}$}  \\
+	H_1 & : \beta_{i0} \neq \beta_{j0} \text{ for at least one $i,j \in \mathcal{I}$ with $i \neq j$} \nonumber
+\end{align}
+
+\noindent An ANOVA-type statistic for testing is
+\begin{align}
+	F & = \frac{ \left( \bm{\hat{E}}_r'\bm{\hat{E}}_r - \bm{\hat{E}}_u'\bm{\hat{E}}_u \right) / \left( N - 1\right) } { \bm{\hat{E}}_u'\bm{\hat{E}}_u / \left(N\cdot T - \left( N + K \right) \right) } \nonumber \\ 
+	  & \sim F \left( N - 1, N\cdot T - \left( N + K \right) \right), 
+\end{align}
+\noindent where $r$ denotes the restricted model that imposes the null (i.e.,\ the pooled-regression model) and $u$ denotes unrestricted model (i.e.,\ the fixed-effects model).\\ 
+
+\
+
+\noindent \textbf{Random-Effects Regression Model.} The fixed-effects model exploits the panel or longitudinal structure of the data to estimate individual-level slopes that pick-up individual-unobserved endogeneity. Random-effects models exploit the longitudinal structure of the data to model the error term. The assumptions in this model are: 
+\begin{align}
+	\mathbb{E} \left[ \nu_i \mid \bm{x} \right] = \mathbb{E} \left[ e_{it} \mid \bm{x} \right] & =  0 \ \forall i,t \nonumber \\ 
+	\cov \left( e_{it}, \nu_i \right) & = 0 \ \forall i,t \nonumber \\ 
+	\cov \left( e_{it}, e_{js} \right) & = 0 \ \forall i,t \text{ and } j,s \text{ with } i \neq j \text{ and } t \neq s \nonumber \\ 
+	\cov \left( \nu_i , \nu_j \right) & = 0 \text{ for } i \neq j \nonumber \\
+	\var \left( \nu_i \right) & = \sigma_\nu^2 \nonumber \\ 
+	\var \left( e_i \right) & = \sigma_e^2 
+\end{align}
+
+\noindent Letting $w_{it}:= nu_i + e_{it} :=  \sigma_\nu^2 + \sigma_e^2 $, this model could be estimates with the methods for heteroskedasticity discussed in Econ 900-03.\\
+
+\noindent Random-effects models are rarely preferred over fixed-effect models because the assumption $\mathbb{E} \left[ \nu_i \mid \bm{x} \right] = 0$ is rejected in Hausman tests that compare fixed-effects models to random-effects models. 
+
+
+\end{document}

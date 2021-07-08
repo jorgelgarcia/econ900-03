@@ -1,0 +1,44 @@
+%Input preamble
+\input{preamble}
+\let\counterwithout\relax
+\let\counterwithin\relax
+\definecolor{maroon}{HTML}{4B0082}
+
+\begin{document}
+
+\noindent \textbf{900-03: Econometrics II: Advanced Regression Analysis and Empirical Design}\\
+\noindent \textbf{Wednesdays and Fridays, 10:00 to 11:30}\\
+\noindent \textbf{Location: TBA}\\
+\noindent Instructor: Jorge Luis García \\
+e-mail: jlgarci@clemson.edu\\
+
+\noindent \textbf{Empirical Exercise 3.}\\
+
+\noindent \textbf{Matching and Experimental Methods.} 
+Download the data on the problem set's folder. The data includes three samples: the sample from the National Supported Work (NSW) demonstration, a sample from the Current Population Survey, and a sample of the Panel Study of Income Dynamics (PSID). The variables sample and treated identify the sample and random assignment to the demonstration program for the relevant sample.
+\begin{enumerate} 
+\item In the NSW sample, what parameter can you identify exploiting randomization?\\
+\noindent \textbf{Answer:} The answers so far directly imply that randomization identifies the average treatment effect.\\
+
+\item What other parameters could you identify with more assumptions and what are these other assumptions?\\
+\noindent \textbf{Answer:} With zero additional assumptions, randomization identifies the average treatment on the treated (ATT) and on the untreated (ATU) because if $\left( y_{i}^0, y_{i}^1 \right) \independent D_{i}$, $\text{ATE} = \text{ATT} = \text{ATU}$.\\
+\item Write down a Stata program that does the following: 
+	\begin{enumerate} 
+		\item Verify that the randomization protocol worked out well in the NSW demonstration.\\ 
+		\noindent \textbf{Answer:} See problem5\_solution.do (note explanations within file).
+		\item Estimate the parameter in 2. Use an estimator based on means.\\ 
+		\noindent \textbf{Answer:} See problem5\_solution.do (note explanations within file).\\
+		\item What assumption would suffice for you to use the CPS sample as a control group?\\ 
+		\noindent \textbf{Answer:} Conditional independence would make CPS a valid control group because there is no treatment in the CPS sample. Recall the first and second lectures to relate this to structural invariance across samples.\\
+		\item Estimate the parameter in 2 using CPS as the control group. Use an estimator based on means.\\ 
+		\noindent \textbf{Answer:} See problem5\_solution.do (note explanations within file).\\
+		\item Estimate this parameter again using OLS to improve your estimator with respect to the previous estimator.\\ 
+		\noindent \textbf{Answer:} See problem5\_solution.do (note explanations within file).\\
+		\item Think about the covariates that you would use to investigate balance between the treatment and the CPS sample. Test balance.\\ 
+		\noindent \textbf{Answer:} See problem5\_solution.do (note explanations within file).\\
+		\item Estimate the parameter in 2. using nearest neighbor propensity score matching, propensity score, and local-linear regression. [Hint: ssc install psmatch2]\\ 
+		\noindent \textbf{Answer:} See problem5\_solution.do (note explanations within file).
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}

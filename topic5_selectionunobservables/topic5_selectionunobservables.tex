@@ -1,0 +1,98 @@
+%Input preamble
+\input{preamble}
+\let\counterwithout\relax
+\let\counterwithin\relax
+\definecolor{maroon}{HTML}{4B0082}
+
+\begin{document}
+%\onehalfspacing
+
+\noindent \textbf{Selection on Unobservables.}\\
+\noindent Jorge Luis García \\
+\noindent e-mail: jlgarci@clemson.edu\\
+
+\noindent The first framework in which selection on unobservables is acknowledge is the incidental truncation case where 
+\begin{align}
+	\textbf{(latent) selection variable} &: z_{i}^* \nonumber \\ 
+	\textbf{(latent) dependent variable} &: y_{i}^* \nonumber
+\end{align}
+
+\noindent The selection variable determines whether $y_i$ is observed. These variables are modeled as
+\begin{align}
+	z_i^* & = \bm{w}_i \cdot \bm{\gamma} + u_i \nonumber \\
+	y_i^* & = \bm{x}_i \cdot \bm{\beta} + e_i, 
+\end{align}
+\noindent where $\bm{w}_i := \left[ \bm{x}_i \ \vdots \  \bm{z}_i \right]$. $\bm{z}_i$ is a set of observed characteristics that appear in the selection latent, but not in the dependent-variable latent. The mapping between the latent is 
+\begin{align}
+z_i = \left\{
+        \begin{array}{ll}
+            1 & \quad z_i^* > 0 \\
+            0 & \quad z_i^* < 0
+        \end{array}
+    \right.
+\end{align}
+\noindent and 
+\begin{align}
+y_i = \left\{
+        \begin{array}{ll}
+            y_i^* & \quad z_i = 1 \\
+            \text{not observed} & \quad z_i = 0
+        \end{array}
+    \right.
+\end{align}
+
+\noindent The standard example is the following: $z_i^*$ is the propensity to join the labor force. If it is greater than a threshold, then $i$ works. Otherwise she does not. If she works, her wage ($y_i$) is observed.\\
+
+\noindent The question is: Is it possible to recover consistent estimates of $\beta$ if employing OLS on the observed sample? Exploring: 
+\begin{align}
+		\mathbb{E} \left[ \bm{\hat{\beta}}^{\text{OLS}} \mid \bm{w} \right]  & = \mathbb{E} \left[ { \left( \bm{x}' \bm{x} \right) }^{-1} \bm{x}' \bm{y} \mid \bm{w}, z_{i} = 1 \right] \nonumber \\
+		    & = { \left( \bm{x}' \bm{x} \right) }^{-1} \bm{x}'	\mathbb{E} \left[ \bm{y} \mid \bm{w}, z_{i} = 1 \right]
+\end{align}
+\noindent Even if $\mathbb{E} \left[ e_i \mid \bm{w} \right] = 0$ OLS yields inconsistent estimates. That is because the distribution of $e_i$ could fundamentally differs between the subsample for which $z_i = 0$ and the subsample for which $z_i = 1$. That is, $\mathbb{E} \left[ e_i \mid \bm{w} \right] = 0$ does not imply that $\mathbb{E} \left[ e_i \mid \bm{w}, z_i = z \right] = 0$ for $z = 0,1$.\\ 
+
+\noindent The objective is then to come up with an specification that enables obtaining consistent estimates of $\bm{\beta}$.\\ 
+
+\noindent \textbf{Normality.} One alternative is to parameterize the joint distribution of $u_i$ and $e_i$ to obtain a ``control function.'' The argument is the following.\\
+
+\noindent Let
+\begin{align}
+	\begin{pmatrix}
+		e_i \\
+		u_i
+	\end{pmatrix} \sim \mathcal{N}
+	\begin{bmatrix}
+		\begin{pmatrix}
+			0 \\ 
+			0
+		\end{pmatrix}, 
+		\begin{pmatrix}
+		\sigma_e^2 & \sigma_{ue} \\
+		\sigma_u^2 & 1	
+		\end{pmatrix}
+	\end{bmatrix}. 
+\end{align}
+
+\noindent Then,
+\begin{align}
+	\mathbb{E} \left[ e_i \mid \bm{w}, z_i = 1 \right] & = \mathbb{E} \left[ e_i \mid \bm{w}, u_i > - \bm{w}_i \cdot \bm{\gamma} \right] \nonumber \\ 
+	& = \frac{ \int \limits _{-\infty} ^{\infty} \int \limits _{-\bm{w}_i \cdot \bm{\gamma}} ^{\infty} e_i f \left( e_i, u_i \right) du_i de_i}{ \Phi \left( \bm{w}_i \cdot \bm{\gamma} \right)  } \nonumber \\
+	& = \frac{ \int \limits _{-\infty} ^{\infty} \int \limits _{-\bm{w}_i \cdot \bm{\gamma}} ^{\infty} e_i f \left( e_i \mid  u_i \right) f \left( u_i \right)  du_i de_i}{ \Phi \left( \bm{w}_i \cdot \bm{\gamma} \right)  } \nonumber \\
+	& = \frac{ \int \limits _{-\bm{w}_i \cdot \bm{\gamma}} ^{\infty} f \left( u_i \right)  \int \limits _{-\infty} ^{\infty} e_i f \left( e_i \mid  u_i \right) de_i du_i}{ \Phi \left( \bm{w}_i \cdot \bm{\gamma} \right)  } \nonumber \\
+	& = \frac{ \sigma_{ue} \cdot \int \limits _{-\bm{w}_i \cdot \bm{\gamma}} ^{\infty} u_i f \left( u_i \right)  du_i}{ \Phi \left( \bm{w}_i \cdot \bm{\gamma} \right)  } \nonumber \\
+	& = \sigma_{ue} \cdot \underbrace{ \frac{ \phi \left( \bm{w}_i \cdot \bm{\gamma} \right) } { \Phi \left( \bm{w}_i \cdot \bm{\gamma} \right) } }_{\text{Mill's ratio}}
+\end{align}
+
+\noindent This term is useful to ``correct'' the expectation of $y_i$, wich is biased by incidental truncation: 
+\begin{align}
+	\mathbb{E} \left[ y_i \mid \bm{w}, z_i = 1 \right] = \bm{x}_i \cdot \bm{\beta} + \mathbb{E} \left[ e_i \mid \bm{w}, z_i = 1 \right]
+\end{align}
+
+\noindent By including $\mathbb{E} \left[ e_i \mid \bm{w}, z_i = 1 \right]$ as a control consistent estimates of $\beta$ would be obtained.\\
+
+\noindent \textbf{Estimation.} Maximum likelihood enables jointly estimating the parameters characterizing the model for $y_i^*$ and the expectation correction or control function.\\
+
+\noindent An intuitive two-step procedure is to estimate the parameters characterizing the selection model using a Probit, $\bm{\gamma}$, to then construct the Mill's ratio in a first step. In a second step, the parameters characterizing the dependent-variable, $\bm{\beta}$, adding the Mill's ratio ``as a control'' (from there the name control function). This not only yields a consistent estimate of $\bm{\beta}$ but also of $\sigma_{ue}$.\\
+
+\noindent This intuitive approach actually does not require normality. If the correction procedure yields a consistent estimate of $\bm{\beta}$, then it is possible to use a non-parametric estimate of $\mathbb{E} \left[ e_i \mid \bm{w}, z_i = 1 \right]$ as a control function. Specification details are important: A non-parametric estimate could be, for example, a polynomial and could disable identifying the constant term in $\bm{\beta}$. 
+
+\end{document}
