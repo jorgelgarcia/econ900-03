@@ -1,0 +1,113 @@
+%Input preamble
+\input{preamble}
+\let\counterwithout\relax
+\let\counterwithin\relax
+\definecolor{maroon}{HTML}{4B0082}
+
+
+\begin{document}
+\onehalfspacing
+
+\noindent \textbf{Econ 900-03: Final Exam.}\\
+\noindent Instructor: Jorge Luis García \\
+\noindent e-mail: jlgarci@clemson.edu\\
+
+\noindent \textbf{Read the Instructions.} 
+
+\begin{enumerate}
+\item Starting time: 8:00 a.m.\ EST, 11/23/2021. The exam will be sent in an announcement through Canvas. Due date: 8:00 a.m.\ EST, 11/15/2021. \textbf{E-mail me} a scan with your answers to Part 1 and name it ``yourlastname\_theory.'' \textbf{E-mail me} two separate codes for each of the practical problems with the names ``yourlastname\_practical1'' and ``yourlastname\_practical2''. \textbf{Include the three files in one e-mail titled ``your last name: final.''}
+\item You cannot talk to anyone about the exam during its duration. A qualified person with knowledge on the material of this class has taken this exam and has been able to answer it without clarification questions. If I detect that you  spoke to anyone during the exam, your grade for the class will be F.
+\item There are two parts of this exam: Part 1 is theoretical and Part 2 is practical.
+\begin{enumerate}
+\item Part 1: Show your derivations as precisely as possible. Be concrete in your answers: For example, if I ask you for a statistic, you should indicate its degrees of freedom and these should be a number (not a function such as the ``the range of a matrix'').
+\item Part 2: Be concise and clear when writing your code and comment in line when necessary. 
+\end{enumerate}
+\item I am not able to answer emails during the week of the exam. I will send you the final grades a couple of days after the exam. 
+\end{enumerate}
+
+\pagebreak
+\noindent \textbf{Part 1. Theory}\\ 
+
+\noindent \textbf{Problem 1. Non-Parametric and Normal Generalized Roy Models (30 points)} Consider the following data generating process for two treatment statuses and a corresponding selection-into-treatment latent variable: 
+
+\begin{eqnarray} 
+y_{i}^0 &=& \mu_0 \left( \bm{x}_i \right)  + u_{i}^0  \nonumber \\
+y_{i}^1 &=& \mu_1 \left( \bm{x}_i \right)  + u_{i}^1   \nonumber \\
+D_{i}^* &=& \mu_{z} \left( \bm{z}_i \right) - v_i     \nonumber \\
+D_{i} &=& \bm{1} \left[ D_{i}^* \geq 0 \right], 
+\end{eqnarray}
+
+\noindent where the usual notation applies. Assume that $\left( u_i^0, u_i^1, v_i \right) \independent \bm{z}_i$. Recall that $\bm{z}_i$ includes $\bm{x}_i$. To be extra clear, you can condition on both $\bm{x}_i$ and $\bm{z}_i$ if you want to. 
+\begin{enumerate} 
+\item Describe and compare the program evaluation and selection problems. (6 points)
+\item Consider a general, non-parametric selection model and derive $\mathbb{E} \left[ y_{i} | D_i = d, \bm{x}_i = \bm{x}, \bm{z}_i = \bm{z} \right]$ for $d = 0,1$. (4 points)
+\item Derive the ATE $\left( z \right)$, ATT $\left( z \right)$, and ATU $\left( z \right)$. (4 points)
+\item Provide identification conditions for these parameters. (4 points)
+\item Consider a normal selection model where $u_{id} \sim \mathcal{N} \left( 0, \sigma_d^2 \right)$ for $d = 0,1$, $v_i \sim \mathcal{N} \left( 0, \sigma_v^2 \right)$, $\cov \left( u_{i0}, u_{i1} \right) = \sigma_{01}$,  and $\cov \left( u_{id}, v_{i} \right) = \sigma_{dv}$ for $d = 0,1$. Derive $\mathbb{E} \left[ y_{i} | D_i = d, \bm{x}_i = \bm{x}, \bm{z}_i = \bm{z} \right]$ for $d = 0,1$. (4 points)
+\item Derive the ATE $\left( \bm{z} \right)$, ATT $\left( \bm{z} \right)$, and ATU $\left( \bm{z} \right)$. (4 points)
+\item Provide identification conditions for these parameters. (4 points)
+\end{enumerate}
+
+\pagebreak
+\noindent \textbf{Problem 2. Tobit (20 points)} Let the sample model for $i \in \mathcal{I}$ be 
+\begin{align}
+	y_i^* = \bm{x}_i \cdot \bm{\beta} + e_i, 
+\end{align}
+\noindent where $y_i^*$ is the demand for a good. For this good, there are corner solutions so that the analyst only observes $y_i$. The observation rule is
+\begin{align}
+	y_i =  \left\{
+        \begin{array}{ll}
+           y_i^* & \quad \text{ if } y_i^* \geq 0 \\
+           0     & \quad \text{ if } y_i^* < 0. 
+        \end{array}
+    \right.
+\end{align}
+\noindent That is, $y_i$ is censored. Let $e_i | \bm{x}_i \sim_{\text{i.i.d.}} \mathcal{N} \left( 0 , \sigma^2 \right)$. Denote the p.d.f. of $e_i | \bm{x}_i$ by $f \left( e_i | \bm{x}_i  \right)$. In your calculations, use the p.d.f. and c.d.f. of the standard normal distribution and denote them by $\phi$ and $\Phi$ being explicit about their arguments. Note that $f \left( e_i | \bm{x}_i \right) = \frac{1}{\sigma} \phi \left( \frac{e_i}{\sigma}  | \bm{x}_i \right)$. 
+\begin{enumerate}
+	\item What is the contribution of $i \in \mathcal{I}$ to the sample likelihood if $y_i = y_i^*$ (3 points)
+	\item What is the contribution of $i \in \mathcal{I}$ to the sample likelihood if $y_i = 0$ (2 points)
+	\item What is the sample likelihood? (3 points)
+	\item Calculate $\mathbb{E} \left[ y_i \mid \bm{x}_i \right]$. (5 points)
+	\item Write an expression for the marginal effect of $x_{ik}$ on $\mathbb{E} \left[ y_i \mid \bm{x}_i \right]$ if $x_{ik}$ is continuous. (3 points)
+	\item Write an expression for the marginal effect of $x_{ik}$ on $\mathbb{E} \left[ y_i \mid \bm{x}_i \right]$ if $x_{ik}$ is discrete. (2 points)
+	\item How does censoring differ from incidental truncation? (2 points)
+\end{enumerate}
+\pagebreak
+
+\noindent \textbf{Problem 3. Polls (20 points)} Let $y_i^* \in \{ 0 , 1\}$ denote preference for a candidate ($y_i^* = 0$ represents support for Biden and $y_i^*= 1$ represents support for Trump). $x_i \in \{ 0 , 1\}$ denotes a powerful predictor ($x_i = 0$ if supported Hillary Clinton in 2016 and $x_i= 1$ if supported Trump). Further, a good pollster (i.e.,\ not Nate Silver) tells you that the true model is $\Pr \left( y_i^* = 1 \right) = \beta_0 + x_i \cdot \beta_1$ with $0 < \beta_k < 1$ for $k = 0,1$. 
+\begin{enumerate} 
+\item What justifies using a linear probability model to estimate $\beta_k$ for $k = 0,1$? (5 points)
+\end{enumerate}
+
+\noindent You are smart enough to recognize that $y_i^*$ is measured with error. Instead of $y_i^*$, you observe $y_i$ (which is also binary but could be a lie). $p$ is the probability of an incorrect report when $y_i^* = 1$ (false negative). $q$ is the probability of an incorrect report when $y_i^* = 0$ (false positive). The measurement error is independent of $x_i$. 
+
+\begin{enumerate} 
+\setcounter{enumi}{1}
+\item Provide conditions under which OLS is a consistent estimator of $\beta_1$. (5 points) 
+\item Provide a forecast for the election based on $x_i$ and OLS estimators of $\beta_0$ and $\beta_1$. (5 points)
+\item Do you need a consistent estimator of $\beta_k$ for $k = 0,1$ for a consistent forecast? Or does a consistent estimator of $\beta_1$ suffice? Interpret. (5 points) 
+\end{enumerate}
+
+\pagebreak
+\noindent \textbf{Part 2. Practice}\\
+
+\noindent \textbf{Problem 1. IV in Practice (20 points)} The folder econ900/econ900-03/final contains individual-level data on a school admission system. Individuals  either go to school or not as described by a random variable $D_i$ with realizations $d \in \{0, 1\}$; they are admitted according to a lottery. The random variables $Z_i$ describes the lottery with realizations $z\in \{0, 1\}$. The lottery takes place by year and an arbitrary category given by the variable lotcateg. The other variable in the dataset is the post-graduation wage (wage after a few years of school age) in logs.\\
+
+\noindent Suppose that your plan is to use the variable $Z_i$ as an instrument for $D_i$ in the standard IV setting covered in class. Write a code that does the following:
+\begin{enumerate}
+\item Use an $F$-test test to explore if the instrument is relevant. (5 points) 
+\item Estimate and provide inference for the causal effect of graduation on post-graduation log wage justifying your clustering. (5 points) 
+\item Verify that the instrumental-variable and two-stage least squares estimators provide the same estimate of the causal effect in 2. (5 points)
+\item Verify that the instrumental-variable estimator is equivalent to the quotient of the reduced form to the first stage (this quotient is referred to as the Wald estimator). Interpret. (5 points)
+\end{enumerate}
+
+\noindent \textbf{Problem 2. More IV in Practice and the Bootstrap (20 points)} Note that in Problem 1, the lottery is only exogenous within year $\times$ lottery category cells. 
+
+\begin{enumerate} 
+\item Write a loop that estimates the LATE parameter by year and category. (10 points)
+\item Aggregate the year-category-wise LATE parameter estimates using a weighted average with the appropriate weights. (5 points)
+\item Provide a $90\%$ confidence interval for the weighted-average of the LATE using the bootstrap (justify your clustering). Set your seed to 1 and use 1,000 bootstrap resamples. (5 points)
+\end{enumerate}
+
+\end{document}
+
