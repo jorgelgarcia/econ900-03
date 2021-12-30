@@ -10,7 +10,7 @@
 \noindent Jorge Luis García \\
 \noindent e-mail: jlgarci@clemson.edu\\
 
-\noindent Throughout Econ 900-02 and Econ 900-03, three two estimators have been considered: OLS, IV, and ML. This estimators have a common feature: They exploit moment conditions motivated either by an algorithm (e.g.,\ first-order conditions of minimization or maximization problems) or an assumption (e.g.,\ an orthogonality condition).\\
+\noindent Throughout Econ 900-02 and Econ 900-03, two estimators have been considered: OLS, IV, and ML. This estimators have a common feature: They exploit moment conditions motivated either by an algorithm (e.g.,\ first-order conditions of minimization or maximization problems) or an assumption (e.g.,\ an orthogonality condition).\\
 
 \noindent \textbf{OLS as a Method of Moments Estimator.} The first-order conditions of OLS lead to impose the empirical counterpart of the moment condition implied by the \textbf{Exogeneity} assumption. Thus, the OLS estimator is identical the the method-of-moments estimator based on the moment: 
 \begin{align}
@@ -22,12 +22,12 @@
 	\nonumber \\ 
 	& = \bm{0}
 \end{align}
-\noindent which has $\bm{\hat{\beta}}^{\text{OLS}}$. In Econ 900-02, an analogous instrumental-variable estimator was formulated to exploit an orthogonality condition over an an instrumental variable $z_{i}$.\\
+\noindent which yields $\bm{\hat{\beta}}^{\text{OLS}}$. In Econ 900-02, an analogous instrumental-variable estimator was formulated to exploit an orthogonality condition over an an instrumental variable $z_{i}$.\\
 
 \noindent \textbf{ML as a Method of Moments Estimator.} ML is also a a method-of-moment estimator. To see this, recall that ML estimators ($\bm{\hat{\theta}}$) solve 
 \begin{align}
 	\frac{1}{N} \frac{ \partial \ln L} { \partial \bm{\hat{\theta}} } & = \frac{1}{N}   \sum \limits _{i \in \mathcal{I}} \left[ \frac{ \partial \ln f \left( y_i \mid \bm{x}_i, \bm{\hat{\theta}} \right) } { \partial \bm{\hat{\theta}} } \right] \nonumber \\ 
-		\bm{0}
+		& = \bm{0}
 \end{align}
 \noindent with population analog 
 \begin{align}

@@ -10,13 +10,13 @@
 \noindent Jorge Luis García \\
 \noindent e-mail: jlgarci@clemson.edu\\
 
-\noindent \textbf{Context and Notation.} Let $D_i$ indicate treatment status for individual $i$. The \textit{discrete} support of this variable represents treatment categories. In general, this support is a subset of the non-negative integer numbers (categories), $\mathcal{Z}_{+}$. Let that support be denoted by $\mathcal{D}$, where $\mathcal{D} \subseteq \mathcal{Z}_{+}$.\\
+\noindent \textbf{Context and Notation.} Let $D_i$ indicate treatment status for individual $i$. The \textit{discrete} support of this variable represents treatment categories. In general, this support is a subset of the non-negative integer numbers (categories), $\mathcal{Z}_{+}$. Let the support be denoted by $\mathcal{D}$, where $\mathcal{D} \subseteq \mathcal{Z}_{+}$.\\
 
 \noindent A canonical example is when $\mathcal{D}:= \{ 0,1 \}$, where $0$ indicates no college (no treatment) and $1$ indicates college (treatment). Economists analyze the ``college-going'' decision through the random variable $D_i$. The random variable takes either of the values in $\mathcal{D}$. Let $d$ denote the realization of $D_i$. In the college example, either $d = 0$ or $d = 1$.\\
 
-\noindent \textbf{Selection into Treatment.} Let $y_{i}^d$ denote an economic outcome of interest for individual $i$ when treatment status is $d$. For example, labor income when not going to college, $y_{i}^0$, or labor income when going to college, $y_{i}^1$. Importantly, the economist only gets to observe data of an individual in either of the states but \textit{not in both}. That is, they only observe $y_{i}^0$ or $y_{i}^1$. This is the \textit{substance of the program evaluation problem}. If the economist could observe the individual in both states, then the evaluation would be a trivial exercise facilitated by the computable comparison of $y_{i}^1$ to $y_{i}^0$.\\
+\noindent \textbf{Selection into Treatment.} Let $y_{i}^d$ denote an economic outcome of interest for individual $i$ when treatment status is $d$. For example, labor income when not going to college, $y_{i}^0$, or labor income when going to college, $y_{i}^1$. Importantly, the economist only gets to observe data for an individual in either of the states but \textit{not in both}. That is, they only observe $y_{i}^0$ or $y_{i}^1$. This is the \textit{substance of the program evaluation problem}. If the economist could observe the individual in both states, then the evaluation would be a trivial exercise facilitated by the computable comparison of $y_{i}^1$ to $y_{i}^0$.\\
 
-\noindent There is \textit{selection into treatment} when $y^{d} | D_i = d \neq y^{d} | D_i = d' $ for $d \neq d'$ with $d, d' \in \mathcal{D}$. Note that  $y^{d} | D_i = d$ is the distribution of the economic outcome of interest when treatment is fixed to $d$, conditional on $D_i = d$. That is the distribution of the outcome when fixing treatment status to $d$ \textit{fundamentally} differs when $D_i = d$ if compared to $D_i = d'$.\\ 
+\noindent There is \textit{selection into treatment} when $\left( y^{d} | D_i = d \right) \neq \left( y^{d} | D_i = d' \right) $ for $d \neq d'$ with $d, d' \in \mathcal{D}$. Note that  $y^{d} | D_i = d$ is the distribution of the economic outcome of interest when treatment is fixed to $d$, conditional on $D_i = d$. That is the distribution of the outcome when fixing treatment status to $d$ \textit{fundamentally} differs when $D_i = d$ if compared to $D_i = d'$.\\ 
 
 \noindent Fixing and conditioning are crucial to distinguish in this context. Fixing is the conceptual exercise of ``fixing an individual'' to a counterfactual outcome. Conditioning is the standard statistical exercise. Generally, fixing and conditioning are only the same under randomized assignment of treatment.\\
 
@@ -24,7 +24,7 @@
 \begin{equation} 
 y_{i} =  \left( 1 - D_{i} \right) \cdot y_{i}^0 + D_{i} \cdot y_{i}^1,
 \end{equation}
-\noindent noting that $y_{i} =  y_{i}^0$ if $D_i = 0$.  $y_{i} =  y_{i}^1$ if $D_i = 1$. The \textit{observed} expected difference between treated and untreated individuals is
+\noindent noting that $y_{i} =  y_{i}^0$ if $D_i = 0$ and $y_{i} =  y_{i}^1$ if $D_i = 1$. The \textit{observed} expected difference between treated and untreated individuals is
 \begin{align}
 \mathbb{E} \left[ y_{i} | D_{i} = 1 \right] - \mathbb{E} \left[ y_{i} | D_{i} = 0 \right] &=& \mathbb{E} \left[ y_{i}^1 | D_{i} = 1 \right] - \mathbb{E} \left[ y_{i}^0 | D_{i} = 0 \right] \nonumber \\
 &=& \underbrace{\left[ \mathbb{E} \left[ y_{i}^1 | D_{i} = 1 \right] - \mathbb{E} \left[ y_{i}^0 | D_{i} = 1 \right] \right]}_{\text{Average Treatment on the Treated (ATT)}} \nonumber \\ 
@@ -45,7 +45,7 @@ y_{i} =  \left( 1 - D_{i} \right) \cdot y_{i}^0 + D_{i} \cdot y_{i}^1,
 		&=& \mathbb{E}_{ \bm{X}_{i}} \left[ \mathbb{E} \left[ y_i | D_i = 1,  \bm{X}_{i} \right] -  \mathbb{E} \left[ y_i | D_i = 0,  \bm{X}_{i} \right] \right]
 \end{eqnarray}
 
-\noindent Te third line follows because, if the CIA holds, fixing and conditioning on $D_{i}$ become equivalent once $ \bm{X}_{i}$ is conditioned on. $\mathbb{E} \left[ y_i | D_i = 1,  \bm{X}_{i} \right]$ and $\mathbb{E} \left[ y_i | D_i = 0,  \bm{X}_{i} \right]$ are observed in the data.\\
+\noindent The third line follows because, if the CIA holds, fixing and conditioning on $D_{i}$ become equivalent once $ \bm{X}_{i}$ is conditioned on. $\mathbb{E} \left[ y_i | D_i = 1,  \bm{X}_{i} \right]$ and $\mathbb{E} \left[ y_i | D_i = 0,  \bm{X}_{i} \right]$ are observed in the data.\\
 
 \noindent \textbf{Identification of the ATT.} Under the CIA, the ATT is identified. To see this, note that 
  \begin{eqnarray}
@@ -54,7 +54,7 @@ y_{i} =  \left( 1 - D_{i} \right) \cdot y_{i}^0 + D_{i} \cdot y_{i}^1,
 		&=& \mathbb{E} \left[ y_i | D_i = 1 \right] -  \mathbb{E}_{ \bm{X}_{i}} \left[ \mathbb{E} \left[ y_i | D_i = 0,  \bm{X}_{i} \right] | D_i = 1 \right],
 \end{eqnarray}
 
-\noindent where the third line follows from the CIA. $\mathbb{E} \left[ y_iS | D_i = 1 \right]$ is observed in the data and estimation methods, which allows for recovering $\mathbb{E}_{ \bm{X}_{i}} \left[ \mathbb{E} \left[ y_i | D_i = 0,  \bm{X}_{i} \right] | D_i = 1 \right]$ (see the matching and IPW notes). Identification of the ATU is analogous.\\
+\noindent where the third line follows from the CIA. $\mathbb{E} \left[ y_i | D_i = 1 \right]$ is observed in the data and estimation methods, which allows for recovering $\mathbb{E}_{ \bm{X}_{i}} \left[ \mathbb{E} \left[ y_i | D_i = 0,  \bm{X}_{i} \right] | D_i = 1 \right]$ (see the matching and IPW notes). Identification of the ATU is analogous.\\
 
 \noindent \textbf{Practical Aspects.} 
 	\begin{itemize}

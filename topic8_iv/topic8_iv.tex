@@ -42,7 +42,7 @@ Note that random assignment and exclusion are different assumptions. They are of
 \beta^{\text{IV}} &=&  \mathbb{E} \left[ \beta | D_{i1} = 1, D_{i0} = 0 \right] \nonumber \\
 		         &=:& \mathbb{E} \left[ \beta | \text{compliers} \right]
 \end{eqnarray}
-\noindent That is, linear IV identifies the causal effect of $D_{i}$ on $y_{i}$ for individuals who \textit{comply with the instrument}. For compliers. $D_{i1} = 1$ and  $D_{i0} = 0$: They are pushed to treatment take-up by the instrument. Crucially, different instruments identify different LATEs. Thus, what IV identifies is not necessarily a parameter of interest.\\
+\noindent That is, linear IV identifies the causal effect of $D_{i}$ on $y_{i}$ for individuals who \textit{comply with the instrument}. For compliers, $D_{i1} = 1$ and  $D_{i0} = 0$: They are pushed to treatment take-up by the instrument. Crucially, different instruments identify different LATEs. Thus, what IV identifies is not necessarily a parameter of interest.\\
 
 \noindent \textbf{Terminology.} It is usual for researchers to refer to the following groups: 
 \begin{itemize} 
@@ -53,7 +53,6 @@ Note that random assignment and exclusion are different assumptions. They are of
 \end{itemize}
 
 \noindent Almost by construction, this terminology is confusing. A complier could be a complier for one instrument but not for another. An always taker could be an always taker for one instrument for not for another, and thus they are not an always taker!\\
-
 
 \bigskip
 \noindent \textbf{Proof of Identification of LATE.} By random assignment, 
@@ -80,7 +79,7 @@ Note that random assignment and exclusion are different assumptions. They are of
 &=& \beta^{\text{IV}}, 
 \end{eqnarray}
 
-\noindent where $\mathbb{E} \left[ D_{i} | z_{i} = 1 \right] - \mathbb{E} \left[ D_{i} | z_{i} = = 0 \right] = \mathbb{E} \left[ D_{i1} - D_{i0} \right] = \Pr \left( D_{i1} = 1, D_{i0} = 0 \right)$ by random assignment.\\
+\noindent where $\mathbb{E} \left[ D_{i} | z_{i} = 1 \right] - \mathbb{E} \left[ D_{i} | z_{i} = 0 \right] = \mathbb{E} \left[ D_{i1} - D_{i0} \right] = \Pr \left( D_{i1} = 1, D_{i0} = 0 \right)$ by random assignment.\\
 
 \noindent \textbf{Some Notes.} If all of the individuals comply to treatment for any instrument, then $\text{LATE} =\text{ATE}$. If not, the instrumental-variable framework is usually referred to as heterogeneous effects IV framework. In this framework: 
 \begin{itemize}

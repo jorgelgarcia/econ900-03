@@ -43,14 +43,14 @@ y_i = \left\{
 
 \noindent The standard example is the following: $z_i^*$ is the propensity to join the labor force. If it is greater than a threshold, then $i$ works. Otherwise she does not. If she works, her wage ($y_i$) is observed.\\
 
-\noindent The question is: Is it possible to recover consistent estimates of $\beta$ if employing OLS on the observed sample? Exploring: 
+\noindent The question is: Is it possible to recover consistent estimates of $\bm{\beta}$ by employing OLS on the observed sample? Exploring: 
 \begin{align}
 		\mathbb{E} \left[ \bm{\hat{\beta}}^{\text{OLS}} \mid \bm{w} \right]  & = \mathbb{E} \left[ { \left( \bm{x}' \bm{x} \right) }^{-1} \bm{x}' \bm{y} \mid \bm{w}, z_{i} = 1 \right] \nonumber \\
 		    & = { \left( \bm{x}' \bm{x} \right) }^{-1} \bm{x}'	\mathbb{E} \left[ \bm{y} \mid \bm{w}, z_{i} = 1 \right]
 \end{align}
-\noindent Even if $\mathbb{E} \left[ e_i \mid \bm{w} \right] = 0$ OLS yields inconsistent estimates. That is because the distribution of $e_i$ could fundamentally differs between the subsample for which $z_i = 0$ and the subsample for which $z_i = 1$. That is, $\mathbb{E} \left[ e_i \mid \bm{w} \right] = 0$ does not imply that $\mathbb{E} \left[ e_i \mid \bm{w}, z_i = z \right] = 0$ for $z = 0,1$.\\ 
+\noindent Even if $\mathbb{E} \left[ e_i \mid \bm{w} \right] = 0$, OLS yields inconsistent estimates. That is because the distribution of $e_i$ could fundamentally differ between the subsample for which $z_i = 0$ and the subsample for which $z_i = 1$. That is, $\mathbb{E} \left[ e_i \mid \bm{w} \right] = 0$ does not imply that $\mathbb{E} \left[ e_i \mid \bm{w}, z_i = z \right] = 0$ for $z = 0,1$.\\ 
 
-\noindent The objective is then to come up with an specification that enables obtaining consistent estimates of $\bm{\beta}$.\\ 
+\noindent The objective is then to come up with a specification that enables obtaining consistent estimates of $\bm{\beta}$.\\ 
 
 \noindent \textbf{Normality.} One alternative is to parameterize the joint distribution of $u_i$ and $e_i$ to obtain a ``control function.'' The argument is the following.\\
 
@@ -87,7 +87,7 @@ y_i = \left\{
 	\mathbb{E} \left[ y_i \mid \bm{w}, z_i = 1 \right] = \bm{x}_i \cdot \bm{\beta} + \mathbb{E} \left[ e_i \mid \bm{w}, z_i = 1 \right]
 \end{align}
 
-\noindent By including $\mathbb{E} \left[ e_i \mid \bm{w}, z_i = 1 \right]$ as a control consistent estimates of $\beta$ would be obtained.\\
+\noindent By including $\mathbb{E} \left[ e_i \mid \bm{w}, z_i = 1 \right]$ as a control, consistent estimates of $\beta$ would be obtained.\\
 
 \noindent \textbf{Estimation.} Maximum likelihood enables jointly estimating the parameters characterizing the model for $y_i^*$ and the expectation correction or control function.\\
 

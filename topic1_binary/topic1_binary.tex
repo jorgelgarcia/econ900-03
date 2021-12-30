@@ -11,7 +11,7 @@
 \noindent Jorge Luis García \\
 \noindent e-mail: jlgarci@clemson.edu\\
 
-\noindent Models where $y_i$ is binary are useful because many of the decisions that economists study are of this nature (e.g., giving birth, studying, joining the labor force, retiring). It is usual to model the decision $y_i$ as
+\noindent Models where $y_i$ is binary are useful because many of the decisions that economists study are of this nature (e.g., giving birth, getting into college, joining the labor force, retiring). It is usual to model the decision $y_i$ as
 \begin{align}
 	\Pr \left( y_i = 1 \mid \bm{x} \right) & = F \left( \bm{x}_i \cdot \bm{\beta} \right) \nonumber \\ 
 	\Pr \left( y_i = 0 \mid \bm{x} \right) & = 1 - F \left( \bm{x}_i \cdot \bm{\beta} \right), 
@@ -24,18 +24,18 @@
 	\mathbb{E} \left[ y_i \mid \bm{x} \right] & = \Pr \left( y_i = 1 \mid \bm{x} \right) \nonumber \\  
 											  & =  \bm{x}_i \cdot \bm{\beta}. 
 \end{align} 
-\noindent The linear-regression model for $i \in \mathcal{I}$ is
+\noindent The linear-regression model for individual $i \in \mathcal{I}$ is
 \begin{align}
 	y_i & = \mathbb{E} \left[ y_i \mid \bm{x} \right] - \left( y_i - \mathbb{E} \left[ y_i \mid \bm{x} \right] \right) \nonumber \\ 
 		& = \mathbb{E} \left[ y_i \mid \bm{x} \right] + e_i \nonumber \\
-		& = \bm{x}_i \cdot \bm{\beta} + e_i
+		& = \bm{x}_i \cdot \bm{\beta} + e_i.
 \end{align}
 
 \noindent Modeling a binary choice with with a linear-regression model (linear-probability model) is the current, standard practice in applied economics. This modeling has two \textit{specification issues}:
 
 \begin{enumerate}
-	\item $e_i \mid \bm{x}$ is heteroskedastic. This follows because $\bm{x}_i \cdot \bm{\beta} + e_i$ is either $0$ or $1$. Therefore, $e_i$ is binary: It is $- \bm{x}_i \cdot \bm{\beta}$ when $y_i = 0$ and $1 - \bm{x}_i \cdot \bm{\beta}$ when $y_i = 1$. Therefore, $\var\left( e_i \mid \bm{x} \right)  = \mathbb{E} \left[ y_i \mid \bm{x} \right] \cdot \left( 1 - \mathbb{E} \left[ y_i \mid \bm{x} \right]  \right) = \bm{x}_i \cdot \bm{\beta} \cdot \left( 1 - \bm{x}_i \cdot \bm{\beta} \right)$. This problem is straightforward 
-	\item $\Pr \left( y_i = 1 \mid \bm{x} \right)$ is out of bounds. In this model, $\Pr \left( y_i = 1 \mid \bm{x} \right) = \mathbb{E} \left[ y_i \mid \bm{x} \right] = \bm{x}_i \cdot \bm{\beta}$. In the absence of restrictions on $\bm{x}$, the prediction of the model could be either negative or greater than $1$, which is a problem because the model aims to predict a probability. This is an issue that could be solved with careful specification of $\bm{x}$ (e.g., of $\bm{x}$ categorizes observed characteristics, then estimated $\bm{\beta}$ are the sample average of $y_i$ for each category). 
+	\item $e_i \mid \bm{x}$ is heteroskedastic. This follows because $\bm{x}_i \cdot \bm{\beta} + e_i$ is either $0$ or $1$. Therefore, $e_i$ is binary: It is $- \bm{x}_i \cdot \bm{\beta}$ when $y_i = 0$ and $1 - \bm{x}_i \cdot \bm{\beta}$ when $y_i = 1$. Therefore, $\var\left( e_i \mid \bm{x} \right)  = \mathbb{E} \left[ y_i \mid \bm{x} \right] \cdot \left( 1 - \mathbb{E} \left[ y_i \mid \bm{x} \right]  \right) = \bm{x}_i \cdot \bm{\beta} \cdot \left( 1 - \bm{x}_i \cdot \bm{\beta} \right)$. This problem is straightforward.
+	\item $\Pr \left( y_i = 1 \mid \bm{x} \right)$ is out of bounds. In this model, $\Pr \left( y_i = 1 \mid \bm{x} \right) = \mathbb{E} \left[ y_i \mid \bm{x} \right] = \bm{x}_i \cdot \bm{\beta}$. In the absence of restrictions on $\bm{x}$, the prediction of the model could be either negative or greater than $1$, which is a problem because the model aims to predict a probability. This is an issue that could be solved with careful specification of $\bm{x}$ (e.g., if $\bm{x}$ categorizes observed characteristics, then the estimated $\bm{\beta}$ are the sample averages of $y_i$ for each category). 
 \end{enumerate}
 
 \noindent \textbf{Probit and Logit Models.} An alternative is to model $F$ in a way such that $\Pr \left( y_i = 1 \mid \bm{x} \right)$ is appropriately bounded. Two usual options are 
@@ -51,7 +51,7 @@
 	\textbf{Marginal Effect in the Logit} &: \frac{\partial \Pr \left( y_i = 1 \mid \bm{x} \right)} {\partial x_{ik} } = \frac{\partial  \Lambda \left( \bm{x} \cdot \bm{\beta} \right) } {\partial x_{ik} } = \lambda\left( \bm{x} \cdot \bm{\beta} \right) \cdot \beta_k \nonumber.
 \end{align}
 
-\noindent \textbf{Random Utility Models.} A general modeling of a binary decision is to let $U^k = \bm{x}_i \cdot \bm{\beta}^k + e^k$ be the utility when $y_i$ for $k = 0, 1$. Individual $i \in \mathcal{I}$ decides according the following rule: 
+\noindent \textbf{Random Utility Models.} A general modeling of a binary decision is to let $U^k = \bm{x}_i \cdot \bm{\beta}^k + e^k$ be the utility when $y_i = k$ for $k = 0, 1$. Individual $i \in \mathcal{I}$ decides according the following rule: 
 \begin{align}
 y_i = \left\{
         \begin{array}{ll}
@@ -67,7 +67,7 @@ y_i = \left\{
 	 & =: \Pr \left( \bm{x}_i \cdot \bm{\beta} + e_i > 0 \mid \bm{x} \right) \\ \nonumber
 	 & =  \Pr \left( \frac{e_i}{\sigma} > - \frac{\bm{x}_i \cdot \bm{\beta}}{\sigma} \mid \bm{x} \right), 
 \end{align}
-\noindent where $\sigma:= \sqrt{\var \left( e_i \mid \bm{x} \right)}$. The last equality shows that it is not possible to separately identify the elements in $\bm{\beta}$ from $\sigma$. Thus the usual assumption that $\sigma = 1$. That assumption directly enables linking random utility models to either the Probit or Logit models.\\
+\noindent where $\sigma:= \sqrt{\var \left( e_i \mid \bm{x} \right)}$. The last equality shows that it is not possible to separately identify the elements in $\bm{\beta}$ from $\sigma$. Thus the usual assumption that $\sigma = 1$. This assumption directly enables linking random utility models to either the Probit or Logit models.\\
 
 \noindent \textbf{Estimation in Binary-Response Models.} Estimation in the linear probability model proceeds as thoroughly discussed in Econ 900-02. For Probit and Logit models, maximum likelihood enables estimating $\bm{\beta}$. For $F = \Phi, \Lambda$, the likelihood contribution of $i \in \mathcal{I}$
  \begin{align}

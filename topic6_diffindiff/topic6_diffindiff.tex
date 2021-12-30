@@ -61,7 +61,7 @@ Y_{i1} - Y_{i0} &=& \left[ D_{i1} \cdot Y_{i1}^1 +  \left( 1 - D_{i1} \right) \c
 \text{PTA} &:&  \mathbb{E}  \left[  Y_{i1}^0 -  Y_{i0}^0 | D_{i1} = 1\right] =  \mathbb{E}  \left[  Y_{i1}^0 -  Y_{i0}^0 | D_{i1} = 0 \right].
 \end{eqnarray}
 
-\noindent The parallel trends assumption is an assumption about the after-before change in the no-treatment counterfactual. It is an assumption that postulates absence of selection on the change in the no-treatment counterfactual. Precisely, it assumes that this change is the same for the treatment and control groups. The PTA is not testable. Evidence in favor of it is accumulated when observation in $t < 0$ are available. Because treatment starts in $t = 1$, data available in $t < 0$ allows to verify
+\noindent The parallel trends assumption is an assumption about the after-before change in the no-treatment counterfactual. It is an assumption that postulates absence of selection on the change in the no-treatment counterfactual. Precisely, it assumes that this change is the same for the treatment and control groups. The PTA is not testable. Evidence in favor of it is accumulated when observations in $t < 0$ are available. Because treatment starts in $t = 1$, data available in $t < 0$ allows to verify
 \begin{eqnarray} 
 \text{PTA'} &:&  \mathbb{E}  \left[  Y_{it}^0 -  Y_{i{t-1}}^0 | D_{i1} = 1\right] =  \mathbb{E}  \left[  Y_{it}^0 -  Y_{i{t-1}}^0 | D_{i1} = 0 \right] \text{ for } t \leq  0
 \end{eqnarray}
@@ -93,8 +93,8 @@ Y_{it} = \beta_0 + \beta_1  \cdot \bm{1}\left [ t = 1 \right] + \beta_2  \cdot \
 \noindent \textbf{Additional Aspects.} Improvements to difference-in-differences include
 \begin{itemize}
 	\item Changes in changes as in \citet{athey_identification_2006}. 
-	\item Including multiple treatment groups in which timing of treatment starts in different years, including the considerations in \citet{goodman-bacon_difference--differences_2018}. 
-	\item Synthetic-control methods developed in \citet{kellogg_combining_2020}. 
+	\item Including multiple treatment groups in which timing of treatment starts in different years, including the considerations in \citet{goodman-bacon_difference--differences_2018} and several other papers.
+	\item Synthetic-control methods, more recently developed in \citet{kellogg_combining_2020}. 
 \end{itemize}
 \noindent \textbf{Inference.} Inference procedures are discussed, for example, in \citet{bertrand_how_2004}. 
 

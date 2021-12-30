@@ -36,7 +36,7 @@
 
 \noindent Sharp RDD is an ATE local at $c$.\\
 
-\noindent \textbf{Identification in Fuzzy Regression Discontinuity Designs.} In this case, $\Pr \left[ D_{i} = 1 | R_i = r \right]$ is discontinuous at $r = c$ but $\Pr \left[ D_{i} = 1 | R_i = r \right] \neq \bm{1} \left[ R_i \geq c \right]$. Thus, $ z_{i}:= \bm{1} \left[ R_i \leq c \right]$ is a relevant but not an exact predictor of  of $D_{i}$. Fuzzy regression discontinuity is a limiting form of instrumental variables in which $\left( y_{i0} - y_{i1} \right) \independent z_{i} | R_{i}$.\\
+\noindent \textbf{Identification in Fuzzy Regression Discontinuity Designs.} In this case, $\Pr \left[ D_{i} = 1 | R_i = r \right]$ is discontinuous at $r = c$, but $\Pr \left[ D_{i} = 1 | R_i = r \right] \neq \bm{1} \left[ R_i \geq c \right]$. Thus, $ z_{i}:= \bm{1} \left[ R_i \leq c \right]$ is a relevant but not an exact predictor of  of $D_{i}$. Fuzzy regression discontinuity is a limiting form of instrumental variables in which $\left( y_{i0} - y_{i1} \right) \independent z_{i} | R_{i}$.\\
 
 \noindent Formally, let $z_{i}$ satisfy the linear instrumental-variable setting assumptions and assume that $\mathbb{E} \left[ y_{id} | R_i = r, \kappa = k \right]$ and $\Pr \left[ \kappa = k | R_i = r \right]$ are continuous at $r = c$, where $\kappa = \{$ \text{always takers}, \text{never takers}, \text{compliers} $\}$, then
 
@@ -46,7 +46,7 @@
 &=&\frac{  \lim_{r \downarrow c} \mathbb{E} \left[ y_{i} | R_{i} = r  \right] - \lim_{r \uparrow c} \mathbb{E} \left[ y_{i} | R_{i} = r  \right] } {  \lim_{r \downarrow c} \mathbb{E} \left[ D_{i} | R_{i} = r  \right] - \lim_{r \uparrow c} \mathbb{E} \left[ D_{i} | R_{i} = r  \right] }.
 \end{eqnarray}
 
-\noindent where the equality follow because, at the limit, $z_i$ becomes redundant. Fuzzy RDD, therefore, identifies a LATE that is local to compliers at the cutoff, which is not necessarily a parameter of interest. This is also true for the parameter that sharp RDD identifies. Therefore, the critiques to LATE discussed in the linear IV case apply here.\\
+\noindent where the equality follows because, at the limit, $z_i$ becomes redundant. Fuzzy RDD, therefore, identifies a LATE that is local to compliers at the cutoff, which is not necessarily a parameter of interest. This is also true for the parameter that sharp RDD identifies. Therefore, the critiques to LATE discussed in the linear IV case apply here.\\
 
 \noindent \textbf{Practice.} Non-parametric identification at the cutoff suggests using individuals at the cutoff for estimation. However, $y_{i0}$ is not observed if $R_{i} \geq c$ and there could be few observations for whom $R_{i} = c$ to estimate $y_{i1}$. Thus, researchers usually employ observations for whom $R < c $ and $R \geq c $ to form separate estimators of $\mathbb{E} \left[ y_{i} | R_{i} \right] $.\\
 
@@ -56,7 +56,7 @@
 \begin{equation}
 y_{i} = \alpha + \theta \cdot D_{i} + g \left( R_i \right) + \varepsilon_{i}, 
 \end{equation}
-\noindent for an unknown functions $g \left( \cdot \right)$. Polynomials or other semi-parametric functions of $R_{i} - c$ are usual proxies. Importantly, 
+\noindent for an unknown functions $g \left( \cdot \right)$. Polynomials or other semi-parametric functions of $R_{i} - c$ are usual proxies. Importantly:
 
 \begin{itemize}
 \item Can be estimated as locally in the interval $R_{i} \in \left[ h - c, h + c \right]$ and let $h$ be as small as the data permits. 

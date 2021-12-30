@@ -11,8 +11,6 @@
 \noindent Jorge Luis García \\
 \noindent e-mail: jlgarci@clemson.edu\\
 
-\noindent Revisit matching on observed characteristics reinforcing the common-support assumption. Why? Because it should be clear that the objective is to obtain treatment-effect estimates for each value $\bm{x}_i = \bm{x}$ and then average across the support of $\bm{x}_i$.\\
-
 \noindent \textbf{Common Support.} The common support assumption is
 \begin{align}
 	0 & < \Pr \left( D_i | \bm{x}_i = \bm{x} \right) \nonumber \\
@@ -22,7 +20,7 @@
 
 \noindent The common support assumption is testable.\\
 
-\noindent \textbf{Conditional Independence Assumption.} The conditional-independence assumption is grants identification: 
+\noindent \textbf{Conditional Independence Assumption.} The conditional-independence assumption grants identification: 
 \begin{align}
 	\textbf{CIA}: \left( y_i^1, y_i^0 \right) \independent D_i \mid \bm{x}_i \nonumber 
 \end{align}
@@ -35,12 +33,12 @@
 \noindent The sample model for the counterfactual outcomes is
 \begin{align}
 	y_i^0 = g^0 \left( \bm{x}_i \right) + e_i^0 \nonumber \\
-	y_i^1 = g^1 \left( \bm{x}_i \right) + e_i^1
+	y_i^1 = g^1 \left( \bm{x}_i \right) + e_i^1.
 \end{align}
 
-\noindent \textbf{Estimators of the ATE, ATT, and ATU.} Under the CIA, Two options for obtaining the estimates are the following. 
+\noindent \textbf{Estimators of the ATE, ATT, and ATU.} Under the CIA, two options for obtaining the estimates are the following: 
 \begin{enumerate}
-	\item Categorize $i \in \mathcal{I}$ into $J$ categories indexed by $\mathcal{J}$. The categories are based on the values of $\bm{x}_i$. Then, for the average difference between the subsample for which $D_i = 1$ and the subsample for which $D_i = 0$ for the category $j \in \mathcal{J}$: 
+	\item Categorize $i \in \mathcal{I}$ into $J$ categories indexed by $\mathcal{J}$. The categories are based on the values of $\bm{x}_i$. Then, form the average difference between the subsample for which $D_i = 1$ and the subsample for which $D_i = 0$ for the category $j \in \mathcal{J}$: 
 	\begin{align}
 		\hat{\Delta}_j = \bar{y}_{1,j} - \bar{y}_{0,j}
 	\end{align}
@@ -64,14 +62,14 @@ To form the ATE, ATT, and ATU estimators, average across categories:
 
 \noindent Note that these procedures are non-parametric in that they do not require specifying $g^0$ or $g^1$. If the CIA does not hold, the procedures at least enable estimating non-parametric estimates of the average difference between subsamples ($D_i = 0$ and $D_i = 1$).\\ 
 
-\noindent so what are the weights? \\
+\noindent So what are the weights? \\
 
 \noindent Define 
 \begin{align}
 	\Pr \left( D_i = 1 \mid \bm{x}_i = \bm{x}_j \right) & =: p \left( \bm{x}_j \right) \nonumber \\ 
 	& = \frac{n_{1j}}{n_{0j} + n_{1j}}  
 \end{align}
-\noindent where $n_{dj}$ is the number of individuals in category $j \in \mathcal{J}$ for whim $D_i = d$. 
+\noindent where $n_{dj}$ is the number of individuals in category $j \in \mathcal{J}$ for whom $D_i = d$. 
 
 \noindent The weights for each estimator are:
 \begin{align}
